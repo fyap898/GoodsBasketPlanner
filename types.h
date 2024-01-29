@@ -1,6 +1,8 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#include <string>
+
 //Code for goods constraints
 #define XD No_Dairy
 #define XF No_Frozen
