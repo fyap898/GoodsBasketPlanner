@@ -13,4 +13,24 @@
 #define M Meat
 #define P Produce
 
+struct grocery_item
+{
+    string item_name;
+    char item_type;
+    int item_weight;
+    int item_size;
+    int item_count;
+    string item_constraint;
+};
+
+struct grocery_bag
+{
+    string bag_type;
+    int bag_weight_limit;
+    int bag_size_limit;
+    int bag_count;
+    string bag_constraints;
+}
+
+
 #endif
