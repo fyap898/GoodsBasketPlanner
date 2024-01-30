@@ -15,7 +15,7 @@
 #define M Meat
 #define P Produce
 
-struct grocery_item
+typedef struct 
 {
     string item_name;
     char item_type;
@@ -23,16 +23,16 @@ struct grocery_item
     int item_size;
     int item_count;
     string item_constraint;
-};
+}grocery_item;
 
-struct grocery_bag
+typedef struct 
 {
     string bag_type;
     int bag_weight_limit;
     int bag_size_limit;
     int bag_count;
     string bag_constraints;
-}
+}grocery_bag;
 
 
 #endif
