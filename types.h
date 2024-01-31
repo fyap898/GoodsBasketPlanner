@@ -3,7 +3,17 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
+
+#define BLACK "\033[30m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN "\033[36m"
+#define WHITE "\033[37m"
 
 //Code for goods constraints
 #define XD No_Dairy
@@ -35,6 +45,5 @@ typedef struct
     int bag_count;
     string bag_constraints;
 }g_bag;
-
 
 #endif

@@ -1,26 +1,24 @@
 #include <iostream>
 #include <fstream>
 #include "types.h"
+#include "lib.h"
 using namespace std;
 
 //Description: Prompts menu
-void menu_prompt();
+void start_message();
 
 int main (){
 
-    menu_prompt();
+    string* data_file = NULL;
+    start_message();
+    get_data(data_file);
 
     return 0;
 }
 
-void menu_prompt()
+void start_message()
 {
-    string infile;
-    cout << "Welcome to Goods Basket Planner\n\n";
-    cout << "Enter Info (file.txt)\n";
-    cin >> infile;
-    
-    
-
+    cout << GREEN << "\n\nWelcome to Goods Basket Planner\n\n" << WHITE;
     return;
 }
+
