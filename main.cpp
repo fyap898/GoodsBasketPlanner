@@ -9,9 +9,14 @@ void start_message();
 
 int main (){
 
-    string* data_file = NULL;
+    string data_file;
+    g_item item[MAX_ITEM];
+    g_basket basket[MAX_BASKET];
+
     start_message();
-    get_data(data_file);
+    get_datafile(data_file);
+    read_datafile(item, basket, data_file);
+    cout << item[0].item_constraint;
 
     return 0;
 }

@@ -8,12 +8,12 @@ $(TARGET): $(MODULES)
 clean:
 	/bin/rm -f *.o $(TEST) $(TARGET) *.*~ *.g*
 
-all: clean $(TEST)
-	./$(TEST)
+all: clean $(TARGET)
+	./$(TARGET)
 
 main.o: main.cpp lib.h types.h
 	g++ $(CPPFLAGS) -c main.cpp
 
 lib.o: lib.cpp lib.h types.h
-	g++ $(CPPFLAGS) -c lib.o
+	g++ $(CPPFLAGS) -c lib.cpp
 

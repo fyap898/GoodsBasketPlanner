@@ -27,9 +27,12 @@ using namespace std;
 #define M Meat
 #define P Produce
 
+#define MAX_ITEM 50
+#define MAX_BASKET 50
+
 typedef struct 
 {
-    string item_name;
+    int item_index;
     char item_type;
     int item_weight;
     int item_size;
@@ -39,11 +42,12 @@ typedef struct
 
 typedef struct 
 {
-    char bag_type;
-    int bag_weight_limit;
-    int bag_size_limit;
-    int bag_count;
-    string bag_constraints;
-}g_bag;
+    int basket_index;
+    char basket_type;
+    int basket_weight_limit;
+    int basket_size_limit;
+    int basket_count;
+    string basket_constraints;
+}g_basket;
 
 #endif
