@@ -24,6 +24,7 @@ int main (){
 void start_message()
 {
     cout << GREEN << "\n\nWelcome to Goods Basket Planner\n\n" << WHITE;
+    menu();
     return;
 }
 
