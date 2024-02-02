@@ -21,4 +21,12 @@ Description: clear input buffer
 */
 void flush();
 
+/*
+void read_basket_file(string basket_file);
+*/
+
+/*
+Description: Prints the main menu 
+*/
+void menu();
 #endif
