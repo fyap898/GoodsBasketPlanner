@@ -19,14 +19,14 @@ void get_datafile(string& data_file)
     infile.close();
 }
 
-void read_datafile(g_item item[], int& itemFill, g_basket basket[], int& basketFill, string data_file)
+void read_item_datafile(g_item item[], int& itemFill, string item_data_file)
 {
     ifstream infile;
     char scanned = '\0';
-    int i = 0;
+    // int i = 0;
     bool done_read = false;
 
-    infile.open(data_file);
+    infile.open(item_data_file);
 
     while (infile >> item[i].item_index >> 
                  item[i].item_type >>
@@ -35,7 +35,7 @@ void read_datafile(g_item item[], int& itemFill, g_basket basket[], int& basketF
                  item[i].item_count >>
                  item[i].item_constraint)
     {
-        i++;
+        itemFill++;
     }
 
         // infile >> item[i].item_index;
@@ -49,7 +49,7 @@ void read_datafile(g_item item[], int& itemFill, g_basket basket[], int& basketF
     return;
 }
 
-// void read_basket_file(string basket_file, g_basket baskets[])
+// void read_basket_file(g_basket basket[], int& basketFill, string basket_data_file);
 // {
 //     ifstream infile;
 //     int i = 0;
@@ -63,7 +63,7 @@ void read_datafile(g_item item[], int& itemFill, g_basket basket[], int& basketF
 //                  baskets[i].basket_count >>
 //                  baskets[i].basket_constraints)
 //     {
-//         i++;
+//         basketFill++;
 //     }
 
 // }
