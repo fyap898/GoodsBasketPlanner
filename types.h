@@ -36,7 +36,7 @@ typedef struct
     char item_type;
     int item_weight;
     int item_size;
-    int item_count; // could remove this
+    // int item_count; could remove this
     string item_constraint;
 }g_item;
 
@@ -46,7 +46,7 @@ typedef struct
     char basket_type;
     int basket_weight_limit;
     int basket_size_limit;
-    int basket_count; // could remove this
+    // int basket_count; // could remove this
     string basket_constraints;
 }g_basket;
 
