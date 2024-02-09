@@ -15,7 +15,7 @@ int main (){
     int item_fill_lvl = 0;
     g_basket basket[MAX_BASKET];
     int basket_fill_lvl = 0;
-    int choice
+    int choice;
 
     choice = start_message();
     get_datafile(string_data_file);
@@ -23,11 +23,11 @@ int main (){
 
     for(int i = 0; i < item_fill_lvl; i++)
     {
-        cout << item[i].item_index << ' '
-             << item[i].item_weight << ' '
-             << item[i].item_type << ' '
-             << item[i].item_size << ' '
-             << item[i].item_constraint << '\n';
+        cout << item_list[i].item_index << ' '
+             << item_list[i].item_weight << ' '
+             << item_list[i].item_type << ' '
+             << item_list[i].item_size << ' '
+             << item_list[i].item_constraint << '\n';
     }
 
     // for(int i = 0; i < basketFillLvl; i++)
