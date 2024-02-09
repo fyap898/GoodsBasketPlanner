@@ -28,7 +28,7 @@ void read_basket_file(g_basket basket[], int& basketFill, string basket_data_fil
 /*
 Description: Prints the main menu 
 */
-void menu();
+int menu();
 
 void view_basket_content(g_basket basket[], int index);
 
