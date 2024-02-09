@@ -12,24 +12,23 @@ Description: Collect input file from user
 void get_datafile(string& data_file);
 
 /*
-Description: Read data from the input file
+Description: Read data from the item's input file
 */
 void read_item_datafile(g_item item[], int& itemFill, string item_data_file);
 
 /*
-Description: clear input buffer
+Description: Read data from the basket's input file
 */
-void flush();
-
-
-void read_basket_file(g_basket basket[], int& basketFill, string basket_data_file);
-
+void read_basket_datafile(g_basket basket[], int& basketFill, string basket_data_file);
 
 /*
 Description: Prints the main menu 
 */
 int menu();
 
+/*
+Description: Display basket's content
+*/
 void view_basket_content(g_basket basket[], int index);
 
 
