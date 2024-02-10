@@ -26,19 +26,21 @@ void read_item_datafile(g_item item[], int& item_fill, string item_data_file)
     // int i = 0;
     bool done_read = false;
 
-    infile.open(item_data_file);
+
 
     if (infile.is_open()) {
         while (infile >> item[item_fill].item_index >> 
                         item[item_fill].item_type >>
                         item[item_fill].item_weight >>
                         item[item_fill].item_size >>
-                        item[item_fill].item_constraint)
+                        item[item_fill].item_constraint || item_fill > MAX_ITEM)
         {
             item_fill++;
         }
+        infile.close();
+    } else {
+        cout << "Unable to open file: " << item_data_file << endl;
     }
-    infile.close();
     return;
 }
 

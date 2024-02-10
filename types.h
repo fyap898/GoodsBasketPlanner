@@ -48,6 +48,7 @@ typedef struct
     int basket_size_limit;
     // int basket_count; // could remove this
     string basket_constraints;
+    g_item item_in_basket[];
 }g_basket;
 
 #endif

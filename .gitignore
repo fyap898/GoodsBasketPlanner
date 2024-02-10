@@ -1,2 +1,5 @@
 
 *.json
+build/Debug/outDebug.exe
+build/Debug/main.o
+build/Debug/lib.o
