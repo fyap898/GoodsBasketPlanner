@@ -9,7 +9,7 @@
 /*
 Description: Collect input file from user
 */
-void get_datafile(string& data_file);
+void get_datafile(string& data_file, char indicator);
 
 /*
 Description: Read data from the item's input file

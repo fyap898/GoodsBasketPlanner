@@ -1,9 +1,16 @@
 #include "lib.h"
 
-void get_datafile(string& data_file)
+void get_datafile(string& data_file, char indicator)
 {
     fstream infile;
-    cout << GREEN << "\nEnter Info (file.txt)\n" << WHITE;
+
+    if(indicator == 'I')
+    {
+        cout << GREEN << "\nEnter Item Data File (file.txt)\n" << WHITE;
+    } else if (indicator == 'B')
+    {
+        cout << GREEN << "\nEnter Basket Data File (file.txt)\n" << WHITE;
+    }
     cin >> data_file;
 
     infile.open(data_file);
@@ -92,3 +99,4 @@ void remove_item(g_basket basket_array[], g_item item_array[])
 {
 
 }
+
