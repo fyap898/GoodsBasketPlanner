@@ -86,7 +86,7 @@ int menu()
     return choice;
 } 
 
-void view_basket_content(g_basket basket[], int index)
+void view_basket_content(g_basket basket[])
 {
     cout << "\nDisplaying all basket's content...\n"
         << "-------------------------------------------------\n";
