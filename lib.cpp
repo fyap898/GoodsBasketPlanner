@@ -47,9 +47,9 @@ void read_item_datafile(g_item item[], int& item_fill, string item_data_file)
 // void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_data_file)
 // {
 //     ifstream infile;
-//     int i = 0;
-
+//     
 //     infile.open(basket_file);
+
 
 //     while (in >> baskets[i].basket_index >> 
 //                  baskets[i].basket_type >>
@@ -80,7 +80,15 @@ int menu()
 
 void view_basket_content(g_basket basket[], int index)
 {
+    
+}
+
+void add_item(g_basket basket_array[], g_item item_array[])
+{
 
 }
 
-// void put_good_in_basket()
+void remove_item(g_basket basket_array[], g_item item_array[])
+{
+
+}
