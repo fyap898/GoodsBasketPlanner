@@ -24,10 +24,10 @@ int main (){
     switch (choice)
     {
     case 1:
-        get_datafile(item_data_file);
+        get_datafile(item_data_file, 'I');
         read_item_datafile(item_list, item_fill_lvl, item_data_file);
 
-        // get_datafile(basket_data_file);
+        // get_datafile(basket_data_file, 'B');
         // read_basket_datafile(basket_list, basket_fill_lvl, basket_data_file);
         break;
     
