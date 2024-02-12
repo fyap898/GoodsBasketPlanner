@@ -29,7 +29,7 @@ int menu();
 /*
 Description: Display basket's content
 */
-void view_basket_content(g_basket basket[], int index);
+void view_basket_content(g_basket basket[]);
 
 /*
 Description: Add single item to a basket
@@ -41,6 +41,10 @@ Description: Removes a single item from a basket
 */
 void remove_item(g_basket basket_array[], g_item item_array[]);
 
+/*
+Description: Clears buffer
+*/
+void flush();
 
 
 #endif
