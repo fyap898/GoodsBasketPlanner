@@ -34,12 +34,12 @@ void view_basket_content(g_basket basket[], int basketFill);
 /*
 Description: Add single item to a basket
 */
-void add_item(g_basket basket_array[], g_item item_array[]);
+void add_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index);
 
 /*
 Description: Removes a single item from a basket
 */
-void remove_item(g_basket basket_array[], g_item item_array[]);
+void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index);
 
 /*
 Description: Clears buffer

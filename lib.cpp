@@ -111,7 +111,8 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
                        >> basket[basket_fill].basket_type
                        >> basket[basket_fill].basket_weight_limit
                        >> basket[basket_fill].basket_size_limit
-                       >> basket[basket_fill].basket_constraints;            basket[basket_fill].fillLvlItem = 0;
+                       >> basket[basket_fill].basket_constraints;            
+                       basket[basket_fill].fillLvlItem = 0;
             basket_fill++;
             basket_count--;
 
@@ -204,14 +205,46 @@ void view_basket_content(g_basket basket[], int basketFill)
     }
 }
 
-void add_item(g_basket basket_array[], g_item item_array[])
+void add_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index)
 {
+
+    bool valid_item = false;
+    int i = 0;
+
+    if (basket_index < 0 || basket_index > basket_fill) {
+        cout << "Invalid basket index" << endl;
+        return;
+    }
+    if (item_index < 0 || item_index > item_fill) {
+        cout << "Invalid item index" << endl;
+        return;
+    }
+
+    while (i < basket_fill || valid_item == false) 
+    {
+        if (basket_array[i].basket_weight_limit == 0 || basket_array[i].basket_size_limit == 0 || ) 
+        {
+                i++;
+        }
+        // function to check constraints here
+        
+        
+    }
+
+
 
 }
 
-void remove_item(g_basket basket_array[], g_item item_array[])
+void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index)
 {
-
+    if (basket_index < 0 || basket_index > MAX_BASKET) {
+        cout << "Invalid basket index" << endl;
+        return;
+    }
+    if (item_index < 0 || item_index > MAX_ITEM) {
+        cout << "Invalid item index" << endl;
+        return;
+    }
 }
 
 void flush()
