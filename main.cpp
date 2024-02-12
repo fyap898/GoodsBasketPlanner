@@ -51,8 +51,8 @@ int main (){
         get_datafile(item_data_file, 'I');
         read_item_datafile(item_list, item_fill_lvl, item_data_file);
 
-        // get_datafile(basket_data_file, 'B');
-        // read_basket_datafile(basket_list, basket_fill_lvl, basket_data_file);
+        get_datafile(basket_data_file, 'B');
+        read_basket_datafile(basket_list, basket_fill_lvl, basket_data_file);
         break;
     
     case 2:
@@ -73,15 +73,14 @@ int main (){
              << item_list[i].item_constraint << '\n';
     }
 
-    // for(int i = 0; i < basketFillLvl; i++)
-    // {
-    //     cout << basket[i].basket_index << ' '
-    //          << basket[i].basket_weight_limit << ' '
-    //          << basket[i].basket_type << ' '
-    //          << basket[i].basket_size_limit << ' '
-    //          << basket[i].basket_count << ' '1
-    //          << basket[i].basket_constraints << '\n';
-    // }
+    for(int i = 0; i < basket_fill_lvl; i++)
+    {
+        cout << basket_list[i].basket_index << ' '
+             << basket_list[i].basket_type << ' '
+             << basket_list[i].basket_weight_limit << ' '
+             << basket_list[i].basket_size_limit << ' '
+             << basket_list[i].basket_constraints << '\n';
+    }
 
     return 0;
 }

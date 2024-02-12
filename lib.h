@@ -29,7 +29,7 @@ int menu();
 /*
 Description: Display basket's content
 */
-void view_basket_content(g_basket basket[]);
+void view_basket_content(g_basket basket[], int basketFill);
 
 /*
 Description: Add single item to a basket

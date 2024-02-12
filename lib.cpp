@@ -96,23 +96,43 @@ void read_item_datafile(g_item item[], int& item_fill, string item_data_file)
     return;
 }
 
-// void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_data_file)
-// {
-//     ifstream infile;
-//     
-//     infile.open(basket_file);
+void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_data_file)
+{
+    ifstream infile(basket_data_file);
+    int basket_count;
+    
+    infile.open(basket_data_file);
 
+    if (infile.is_open()) {
+        
+        while (infile >> basket_count && basket_count != 'E') {
 
-//     while (in >> baskets[i].basket_index >> 
-//                  baskets[i].basket_type >>
-//                  baskets[i].basket_weight_limit >>
-//                  baskets[i].basket_size_limit >>
-//                  baskets[i].basket_constraints)
-//     {
-//         basketFill++;
-//     }
+            infile >> basket[basket_fill].basket_index
+                       >> basket[basket_fill].basket_type
+                       >> basket[basket_fill].basket_weight_limit
+                       >> basket[basket_fill].basket_size_limit
+                       >> basket[basket_fill].basket_constraints;            basket[basket_fill].fillLvlItem = 0;
+            basket_fill++;
+            basket_count--;
 
-// }
+            for (int i = 0; i < basket_count && basket_fill < MAX_ITEM; i++) {
+                basket[basket_fill].basket_index = basket[basket_fill - 1].basket_index;
+                basket[basket_fill].basket_type = basket[basket_fill - 1].basket_type;
+                basket[basket_fill].basket_weight_limit = basket[basket_fill - 1].basket_weight_limit;
+                basket[basket_fill].basket_size_limit = basket[basket_fill - 1].basket_size_limit;
+                basket[basket_fill].basket_constraints = basket[basket_fill - 1].basket_constraints;
+                basket[basket_fill].fillLvlItem = basket[basket_fill - 1].fillLvlItem;
+                basket_fill++;
+            }
+        }
+
+        infile.close();
+    } else {
+        cout << "Unable to open file: " << basket_data_file << endl;
+    }
+    
+
+}
 
 
 
@@ -130,12 +150,12 @@ int menu()
     return choice;
 } 
 
-void view_basket_content(g_basket basket[])
+void view_basket_content(g_basket basket[], int basketFill)
 {
     cout << "\nDisplaying all basket's content...\n"
         << "-------------------------------------------------\n";
 
-    for(int i = 0; i < MAX_BASKET || basket[i].basket_index == NULL; i++)
+    for(int i = 0; i < basketFill; i++)
     {
         cout << "Basket Index: " << basket[i].basket_index << "\n"
              << "Weight Limit: " << basket[i].basket_weight_limit << "\n"
