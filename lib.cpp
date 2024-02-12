@@ -31,12 +31,11 @@ void read_item_datafile(g_item item[], int& item_fill, string item_data_file)
     ifstream infile(item_data_file);
     bool eof = false;
     char scanned = '\0';
-    int basket_count;
+    int item_count;
 
     if (infile.is_open()) {
-        int basket_count;
         
-        while (infile >> basket_count && basket_count != 'E') {
+        while (infile >> item_count && item_count != 'E') {
 
             infile >> item[item_fill].item_index
                        >> item[item_fill].item_type
@@ -44,9 +43,9 @@ void read_item_datafile(g_item item[], int& item_fill, string item_data_file)
                        >> item[item_fill].item_size
                        >> item[item_fill].item_constraint;
             item_fill++;
-            basket_count--;
+            item_count--;
 
-            for (int i = 0; i < basket_count && item_fill < MAX_ITEM; i++) {
+            for (int i = 0; i < item_count && item_fill < MAX_ITEM; i++) {
                 item[item_fill].item_index = item[item_fill - 1].item_index;
                 item[item_fill].item_type = item[item_fill - 1].item_type;
                 item[item_fill].item_weight = item[item_fill - 1].item_weight;
