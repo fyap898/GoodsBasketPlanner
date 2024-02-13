@@ -42,6 +42,15 @@ Description: Removes a single item from a basket
 void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index);
 
 /*
+Description: Checks if item is able to go in a basket based on constraints of the basket
+*/
+bool check_item_type(g_basket basket, g_item item);
+
+/*
+Description: Checks if any items already in basket already
+*/
+bool check_item_conflict(g_basket basket, g_item item);
+/*
 Description: Clears buffer
 */
 void flush();

@@ -224,9 +224,12 @@ void add_item(g_basket basket_array[], g_item item_array[], int& basket_fill, in
     {
         if (basket_array[i].basket_weight_limit == 0 || basket_array[i].basket_size_limit == 0 || ) 
         {
-                i++;
+            i++;
         }
-        // function to check constraints here
+        if (check_item_type(basket_array[i], item_array[i]) == false)
+        {
+            i++;
+        }
         
         
     }
@@ -245,6 +248,43 @@ void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill,
         cout << "Invalid item index" << endl;
         return;
     }
+}
+
+bool check_item_type(g_basket basket, g_item item)
+{
+    if ((basket.basket_constraints == "XD" && item.item_type == 'D')
+        || (basket.basket_constraints == "XF" && item.item_type == 'F')
+        || (basket.basket_constraints == "XM" && item.item_type == 'M')
+        || (basket.basket_constraints == "XP" && item.item_type == 'P')) 
+        {
+            return false;
+        } else {
+            return true;
+        }
+}
+
+bool check_item_conflict(g_basket basket, g_item item)
+{
+    int i = 0;
+
+    while (i < basket.fillLvlItem)
+    {
+        if ((basket.item_in_basket[i].item_constraint == "XD" && item.item_type == 'D')
+        || (basket.item_in_basket[i].item_constraint == "XF" && item.item_type == 'F')
+        || (basket.item_in_basket[i].item_constraint == "XM" && item.item_type == 'M')
+        || (basket.item_in_basket[i].item_constraint == "XP" && item.item_type == 'P')
+        || (item.item_constraint == "XD" && basket.item_in_basket[i].item_type == 'D')
+        || (item.item_constraint == "XF" && basket.item_in_basket[i].item_type == 'F')
+        || (item.item_constraint == "XM" && basket.item_in_basket[i].item_type == 'M')
+        || (item.item_constraint == "XP" && basket.item_in_basket[i].item_type == 'P'))
+        {
+            return false;
+        } else {
+            i++;
+        }
+        return true;
+    }
+    
 }
 
 void flush()
