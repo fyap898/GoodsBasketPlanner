@@ -29,8 +29,6 @@ void get_datafile(string& data_file, char indicator)
 void read_item_datafile(g_item item[], int& item_fill, string item_data_file)
 {
     ifstream infile(item_data_file);
-    bool eof = false;
-    char scanned = '\0';
     int item_count;
 
     if (infile.is_open()) {
@@ -45,13 +43,16 @@ void read_item_datafile(g_item item[], int& item_fill, string item_data_file)
             item_fill++;
             item_count--;
 
-            for (int i = 0; i < item_count && item_fill < MAX_ITEM; i++) {
-                item[item_fill].item_index = item[item_fill - 1].item_index;
-                item[item_fill].item_type = item[item_fill - 1].item_type;
-                item[item_fill].item_weight = item[item_fill - 1].item_weight;
-                item[item_fill].item_size = item[item_fill - 1].item_size;
-                item[item_fill].item_constraint = item[item_fill - 1].item_constraint;
-                item_fill++;
+            if(item_count > 0)
+            {
+                for (int i = 0; i < item_count && item_fill < MAX_ITEM; i++) {
+                    item[item_fill].item_index = item[item_fill - 1].item_index;
+                    item[item_fill].item_type = item[item_fill - 1].item_type;
+                    item[item_fill].item_weight = item[item_fill - 1].item_weight;
+                    item[item_fill].item_size = item[item_fill - 1].item_size;
+                    item[item_fill].item_constraint = item[item_fill - 1].item_constraint;
+                    item_fill++;
+                }
             }
         }
 
@@ -104,26 +105,29 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
     infile.open(basket_data_file);
 
     if (infile.is_open()) {
-        
         while (infile >> basket_count && basket_count != 'E') {
-
+            cout << basket_count << endl;
             infile >> basket[basket_fill].basket_index
                        >> basket[basket_fill].basket_type
                        >> basket[basket_fill].basket_weight_limit
                        >> basket[basket_fill].basket_size_limit
-                       >> basket[basket_fill].basket_constraints;            
-                       basket[basket_fill].fillLvlItem = 0;
+                       >> basket[basket_fill].basket_constraints;  
+            cout << basket[basket_fill].basket_type << endl;          
+            basket[basket_fill].fillLvlItem = 0;
             basket_fill++;
             basket_count--;
 
-            for (int i = 0; i < basket_count && basket_fill < MAX_ITEM; i++) {
-                basket[basket_fill].basket_index = basket[basket_fill - 1].basket_index;
-                basket[basket_fill].basket_type = basket[basket_fill - 1].basket_type;
-                basket[basket_fill].basket_weight_limit = basket[basket_fill - 1].basket_weight_limit;
-                basket[basket_fill].basket_size_limit = basket[basket_fill - 1].basket_size_limit;
-                basket[basket_fill].basket_constraints = basket[basket_fill - 1].basket_constraints;
-                basket[basket_fill].fillLvlItem = basket[basket_fill - 1].fillLvlItem;
-                basket_fill++;
+            if(basket_count > 0)
+            {
+                for (int i = 0; i < basket_count && basket_fill < MAX_ITEM; i++) {
+                    basket[basket_fill].basket_index = basket[basket_fill - 1].basket_index;
+                    basket[basket_fill].basket_type = basket[basket_fill - 1].basket_type;
+                    basket[basket_fill].basket_weight_limit = basket[basket_fill - 1].basket_weight_limit;
+                    basket[basket_fill].basket_size_limit = basket[basket_fill - 1].basket_size_limit;
+                    basket[basket_fill].basket_constraints = basket[basket_fill - 1].basket_constraints;
+                    basket[basket_fill].fillLvlItem = basket[basket_fill - 1].fillLvlItem;
+                    basket_fill++;
+                }
             }
         }
 
@@ -134,8 +138,6 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
     
 
 }
-
-
 
 int menu()
 {
@@ -222,7 +224,7 @@ void add_item(g_basket basket_array[], g_item item_array[], int& basket_fill, in
 
     while (i < basket_fill || valid_item == false) 
     {
-        if (basket_array[i].basket_weight_limit == 0 || basket_array[i].basket_size_limit == 0 || ) 
+        if (basket_array[i].basket_weight_limit == 0 || basket_array[i].basket_size_limit == 0) 
         {
             i++;
         }
