@@ -105,6 +105,7 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
     infile.open(basket_data_file);
 
     if (infile.is_open()) {
+        cout << "open\n";
         while (infile >> basket_count && basket_count != 'E') {
             cout << basket_count << endl;
             infile >> basket[basket_fill].basket_index
