@@ -53,7 +53,6 @@ int main (){
 
         get_datafile(basket_data_file, 'B');
         read_basket_datafile(basket_list, basket_fill_lvl, basket_data_file);
-        cout << basket_fill_lvl << endl;
         break;
     
     case 2:

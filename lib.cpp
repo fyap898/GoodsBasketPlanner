@@ -102,18 +102,13 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
     ifstream infile(basket_data_file);
     int basket_count;
     
-    infile.open(basket_data_file);
-
     if (infile.is_open()) {
-        cout << "open\n";
         while (infile >> basket_count && basket_count != 'E') {
-            cout << basket_count << endl;
             infile >> basket[basket_fill].basket_index
                        >> basket[basket_fill].basket_type
                        >> basket[basket_fill].basket_weight_limit
                        >> basket[basket_fill].basket_size_limit
                        >> basket[basket_fill].basket_constraints;  
-            cout << basket[basket_fill].basket_type << endl;          
             basket[basket_fill].fillLvlItem = 0;
             basket_fill++;
             basket_count--;
@@ -131,7 +126,6 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
                 }
             }
         }
-
         infile.close();
     } else {
         cout << "Unable to open file: " << basket_data_file << endl;
