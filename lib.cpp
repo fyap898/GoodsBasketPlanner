@@ -279,8 +279,8 @@ bool check_item_conflict(g_basket basket, g_item item)
         } else {
             i++;
         }
-        return true;
     }
+    return true;
     
 }
 
@@ -293,5 +293,4 @@ void flush()
         cin.get(ch);
     } while (!cin.fail() && ch != '\n');
 
-  return;
 }
