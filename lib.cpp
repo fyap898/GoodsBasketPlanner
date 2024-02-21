@@ -237,6 +237,8 @@ void add_item(g_basket basket_array[], g_item item_array[], int& basket_fill, in
 
 void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index)
 {
+    int i = 0;
+
     if (basket_index < 0 || basket_index > MAX_BASKET) {
         cout << "Invalid basket index" << endl;
         return;
@@ -245,7 +247,32 @@ void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill,
         cout << "Invalid item index" << endl;
         return;
     }
-}
+
+    while (basket_array[basket_index].item_in_basket[i].item_index != item_index)
+    {
+        if (i > basket_array[basket_index].fillLvlItem)
+        {
+            return;
+        } else {
+            i++;
+        }
+    } 
+
+    if(basket_array[basket_index].basket_size_limit == 0 || basket_array[basket_index].basket_weight_limit == 0) {
+            basket_fill++;
+        }
+        basket_array[basket_index].basket_weight_limit += basket_array[basket_index].item_in_basket[i].item_weight;
+        basket_array[basket_index].basket_size_limit += basket_array[basket_index].item_in_basket[i].item_size;
+
+        basket_array[basket_index].item_in_basket[i].item_index = 0;
+        basket_array[basket_index].item_in_basket[i].item_size = 0;
+        basket_array[basket_index].item_in_basket[i].item_weight = 0;
+        basket_array[basket_index].item_in_basket[i].item_type = 'N';
+        basket_array[basket_index].item_in_basket[i].item_constraint = 'N';
+
+        item_fill++;
+
+    }
 
 bool check_item_type(g_basket basket, g_item item)
 {
