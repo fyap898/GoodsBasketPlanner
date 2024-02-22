@@ -21,28 +21,28 @@ int main (){
 
     choice = start_message();
 
-    // g_basket testBasket[2];
-    // testBasket[0].basket_index = 1;
-    // testBasket[0].basket_type = 'P';
-    // testBasket[0].basket_weight_limit = 10;
-    // testBasket[0].basket_size_limit = 20;
-    // testBasket[0].basket_constraints = "XD";
-    // testBasket[0].fillLvlItem = 2;
+    g_basket testBasket[2];
+    testBasket[0].basket_index = 1;
+    testBasket[0].basket_type = 'P';
+    testBasket[0].basket_weight_limit = 10;
+    testBasket[0].basket_size_limit = 20;
+    testBasket[0].basket_constraints = "XD";
+    testBasket[0].fillLvlItem = 2;
 
-    // testBasket[0].item_in_basket[0].item_index = 1;
-    // testBasket[0].item_in_basket[0].item_type = 'P';
-    // testBasket[0].item_in_basket[0].item_weight = 5;
-    // testBasket[0].item_in_basket[0].item_size = 2;
-    // testBasket[0].item_in_basket[0].item_constraint = "XF";
+    testBasket[0].item_in_basket[0].item_index = 1;
+    testBasket[0].item_in_basket[0].item_type = 'P';
+    testBasket[0].item_in_basket[0].item_weight = 5;
+    testBasket[0].item_in_basket[0].item_size = 2;
+    testBasket[0].item_in_basket[0].item_constraint = "XF";
 
-    // testBasket[0].item_in_basket[1].item_index = 2;
-    // testBasket[0].item_in_basket[1].item_type = 'M';
-    // testBasket[0].item_in_basket[1].item_weight = 4;
-    // testBasket[0].item_in_basket[1].item_size = 6;
-    // testBasket[0].item_in_basket[1].item_constraint = "XD";
+    testBasket[0].item_in_basket[1].item_index = 2;
+    testBasket[0].item_in_basket[1].item_type = 'M';
+    testBasket[0].item_in_basket[1].item_weight = 4;
+    testBasket[0].item_in_basket[1].item_size = 6;
+    testBasket[0].item_in_basket[1].item_constraint = "XD";
     
 
-    // view_basket_content(testBasket);
+    view_basket_content(testBasket, testBasket[0].fillLvlItem);
 
 
     switch (choice)

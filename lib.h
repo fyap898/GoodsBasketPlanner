@@ -31,6 +31,8 @@ Description: Display basket's content
 */
 void view_basket_content(g_basket basket[], int basketFill);
 
+void output_basket_info(g_basket basket);
+
 /*
 Description: Add single item to a basket
 */

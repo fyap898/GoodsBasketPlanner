@@ -155,51 +155,66 @@ void view_basket_content(g_basket basket[], int basketFill)
 
     for(int i = 0; i < basketFill; i++)
     {
-        cout << "Basket Index: " << basket[i].basket_index << "\n"
-             << "Weight Limit: " << basket[i].basket_weight_limit << "\n"
-             << "Size Limit: " << basket[i].basket_size_limit << "\n";
-
-        if(basket[i].basket_type == 'D')
+        if(basket[i].basket_index != 0)
         {
-            cout << "Type: Dairy\n";
-        } else if(basket[i].basket_type == 'F')
-        {
-            cout << "Type: Frozen\n";
-        } else if(basket[i].basket_type == 'M')
-        {
-            cout << "Type: Meat\n";
-        } else if(basket[i].basket_type == 'P')
-        {
-            cout << "Type: Produce\n";
-        }
+            output_basket_info(basket[i]);
         
-        if(basket[i].basket_constraints == "XD")
-        {
-            cout << "Constraint: " << basket[i].basket_constraints << "\n\n";
-        } else if(basket[i].basket_constraints == "XF")
-        {
-            cout << "Constraint: " << basket[i].basket_constraints << "\n\n";
-        } else if(basket[i].basket_constraints == "XM")
-        {
-            cout << "Constraint: " << basket[i].basket_constraints << "\n\n";
-        } else if(basket[i].basket_constraints == "XP")
-        {
-            cout << "Constraint: " << basket[i].basket_constraints << "\n\n";
-        }
-    
-        cout << "Items: \n"
-             << "No. | Type\t| Weight | Size | Constraint\n" 
-             << "-------------------------------------------------\n";
+            cout << "Items: \n"
+                << "No. | Type   | Weight     | Size     | Constraint\n" 
+                << "-------------------------------------------------\n";
 
-        for(int j = 0; j < basket[i].fillLvlItem; j++)
-        {
-            cout << basket[i].item_in_basket[j].item_index
-                 << basket[i].item_in_basket[j].item_type
-                 << basket[i].item_in_basket[j].item_weight
-                 << basket[i].item_in_basket[j].item_size
-                 << basket[i].item_in_basket[j].item_constraint << "\n";
+            for(int j = 0; j < basket[i].fillLvlItem; j++)
+            {
+                cout << basket[i].item_in_basket[j].item_index << "\t"
+                    << basket[i].item_in_basket[j].item_type << "\t\t"
+                    << basket[i].item_in_basket[j].item_weight << "\t\t\t"
+                    << basket[i].item_in_basket[j].item_size << "\t\t"
+                    << basket[i].item_in_basket[j].item_constraint << "\n";
+            }
+            cout <<"-------------------------------------------------\n"
+                << endl;
         }
     }
+}
+
+
+
+void output_basket_info(g_basket basket)
+{
+    cout << "Basket Index: " << basket.basket_index << "\n"
+            << "Weight Limit: " << basket.basket_weight_limit << "\n"
+            << "Size Limit: " << basket.basket_size_limit << "\n";
+
+    cout << "Type: ";
+    if(basket.basket_type == 'D')
+    {
+        cout << "Dairy\n";
+    } else if(basket.basket_type == 'F')
+    {
+        cout << "Frozen\n";
+    } else if(basket.basket_type == 'M')
+    {
+        cout << "Meat\n";
+    } else if(basket.basket_type == 'P')
+    {
+        cout << "Produce\n";
+    }
+    
+    cout << "Constraint: ";
+    if(basket.basket_constraints == "XD")
+    {
+        cout << basket.basket_constraints << "\n\n";
+    } else if(basket.basket_constraints == "XF")
+    {
+        cout << basket.basket_constraints << "\n\n";
+    } else if(basket.basket_constraints == "XM")
+    {
+        cout << basket.basket_constraints << "\n\n";
+    } else if(basket.basket_constraints == "XP")
+    {
+        cout << basket.basket_constraints << "\n\n";
+    }
+    
 }
 
 void add_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index)
