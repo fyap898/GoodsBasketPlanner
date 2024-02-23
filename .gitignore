@@ -3,3 +3,8 @@
 build/Debug/outDebug.exe
 build/Debug/main.o
 build/Debug/lib.o
+*.vsidx
+*.ipch
+*.db
+.vs/GoodsBasketPlanner/v17/.wsuo
+.vs/slnx.sqlite
