@@ -13,8 +13,8 @@ bool done = false;
 int main (){
 
     string item_data_file, basket_data_file;
-    item_list* item_List;
-    item_list* head_item_list;
+    item_list* item_list_ptr;
+    item_list* item_head_ptr;
     int item_fill_lvl = 0;
     g_basket basket_list[MAX_BASKET];
     int basket_fill_lvl = 0;
@@ -68,8 +68,8 @@ int main (){
     {
     case 1:
         get_datafile(item_data_file, 'I');
-        item_List = read_item_datafile(item_fill_lvl, item_data_file);
-        head_item_list = item_List;
+        item_list_ptr = read_item_datafile(item_fill_lvl, item_data_file);
+        item_head_ptr = item_list_ptr;
 
         get_datafile(basket_data_file, 'B');
         read_basket_datafile(basket_list, basket_fill_lvl, basket_data_file);
@@ -83,26 +83,27 @@ int main (){
         break;
     }
 
-    // for(int i = 0; i < item_fill_lvl && head != nullptr; i++)
+    // for(int i = 0; i < item_fill_lvl && item_head_ptr != nullptr; i++)
     // {
-    //     cout << head->data.item_index << ' '
-    //          << head->data.item_weight << ' '
-    //          << head->data.item_type << ' '
-    //          << head->data.item_size << ' '
-    //          << head->data.item_constraint << '\n';
+    //     cout << item_head_ptr->data.item_index << ' '
+    //          << item_head_ptr->data.item_weight << ' '
+    //          << item_head_ptr->data.item_type << ' '
+    //          << item_head_ptr->data.item_size << ' '
+    //          << item_head_ptr->data.item_constraint << '\n';
         
-    //     head = head->next;
+    //     item_head_ptr = item_head_ptr->next;
 
     // }
 
-    // for(int i = 0; i < basket_fill_lvl; i++)
-    // {
-    //     cout << basket_list[i].basket_index << ' '
-    //          << basket_list[i].basket_type << ' '
-    //          << basket_list[i].basket_weight_limit << ' '
-    //          << basket_list[i].basket_size_limit << ' '
-    //          << basket_list[i].basket_constraints << '\n';
-    // }
+    for(int i = 0; i < basket_fill_lvl; i++)
+    {
+        cout << basket_list[i].basket_index << ' '
+             << basket_list[i].basket_type << ' '
+             << basket_list[i].basket_weight_limit << ' '
+             << basket_list[i].basket_size_limit << ' '
+             << basket_list[i].basket_constraints << ' '
+             << basket_list[i].item_in_basket << '\n';
+    }
 
     return 0;
 }

@@ -56,8 +56,8 @@ typedef struct
     int basket_size_limit;
     string basket_constraints;
     int fill_lvl_item;
-    g_item item_in_basket[MAX_ITEM];
-    //item_list* item_in_basket;
+    // g_item item_in_basket[MAX_ITEM];
+    item_list* item_in_basket;
 }g_basket;
 
 

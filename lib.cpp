@@ -40,37 +40,31 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
 
             if(head == NULL)
             {
-                cout << head << endl;
                 head = new item_list;
                 curr = head;
-                cout << "then" << head << endl << curr << endl;
                 curr->next = nullptr;
                 curr->prev = nullptr;
             } else {
                 pred = curr;
-                cout << "else";
-                cout << curr << endl;
                 curr->next = new item_list;
                 curr = curr->next;
-                cout << curr << endl;
                 curr->next = nullptr;
                 curr->prev = pred;
             }
 
-            cout << item_count << endl;
             infile >> curr->data.item_index
                        >> curr->data.item_type
                        >> curr->data.item_weight
                        >> curr->data.item_size
                        >> curr->data.item_constraint;
-            cout << curr << endl;
+            curr->data.in_bag = false;
+
             item_fill++;
             item_count--;
 
             if(item_count > 0)
             {
                 for (int i = 0; i < item_count && item_fill < MAX_ITEM; i++) {
-                    cout << "dup\n";
                     pred = curr;
                     curr->next = new item_list;
                     curr = curr->next;
@@ -82,8 +76,8 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
                     curr->data.item_weight = pred->data.item_weight;
                     curr->data.item_size = pred->data.item_size;
                     curr->data.item_constraint = pred->data.item_constraint;
+                    curr->data.in_bag = false;
                     item_fill++;
-                    cout << curr << endl;
                 }
             }
         }
@@ -109,6 +103,7 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
                        >> basket[basket_fill].basket_size_limit
                        >> basket[basket_fill].basket_constraints;  
             basket[basket_fill].fill_lvl_item = 0;
+            basket[basket_fill].item_in_basket = NULL;
             basket_fill++;
             basket_count--;
 
@@ -121,6 +116,7 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
                     basket[basket_fill].basket_size_limit = basket[basket_fill - 1].basket_size_limit;
                     basket[basket_fill].basket_constraints = basket[basket_fill - 1].basket_constraints;
                     basket[basket_fill].fill_lvl_item = basket[basket_fill - 1].fill_lvl_item;
+                    basket[basket_fill].item_in_basket = NULL;
                     basket_fill++;
                 }
             }
