@@ -134,6 +134,7 @@ int menu()
     return choice;
 } 
 
+// Needs to be changed if struct changes
 void view_basket_content(g_basket basket[], int basketFill)
 {
     cout << "\nDisplaying all basket's content...\n"
@@ -204,7 +205,6 @@ void output_basket_info(g_basket basket)
 void add_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index)
 {
 
-    bool valid_item = false;
     int i = 0;
 
     if (basket_index < 0 || basket_index > basket_fill) {
@@ -215,28 +215,26 @@ void add_item(g_basket basket_array[], g_item item_array[], int& basket_fill, in
         cout << "Invalid item index" << endl;
         return;
     }
-
-    while (i < basket_fill || valid_item == false) 
+    if (basket_array[basket_index].basket_weight_limit == 0 || basket_array[basket_index].basket_size_limit == 0)
     {
-        if (basket_array[i].basket_weight_limit == 0 || basket_array[i].basket_size_limit == 0) 
-        {
-            i++;
-        }
-        if (check_item_type(basket_array[i], item_array[i]) == false)
-        {
-            i++;
-        }
-        
-        
+        cout << "Basket is Full" << endl;
+        return;
     }
-
-
+    if (!check_item_conflict(basket_array[basket_index], item_array[item_index]) 
+        || !check_item_type(basket_array[basket_index], item_array[item_index]))
+    {
+        cout << "Item Conflict" << endl;
+        return;
+    }
 
 }
 
-void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index)
+
+void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index) 
 {
+
     int i = 0;
+    item_list* head_pointer = basket_array[basket_index]->item_in_basket;
 
     if (basket_index < 0 || basket_index > MAX_BASKET) {
         cout << "Invalid basket index" << endl;
@@ -247,31 +245,21 @@ void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill,
         return;
     }
 
-    while (basket_array[basket_index].item_in_basket[i].item_index != item_index)
+    // If a full basket has an item removed, it becomes available to be in use again.
+    if (basket_array[basket_index].basket_weight_limit == 0 || basket_array[basket_index].basket_size_limit == 0)
     {
-        if (i > basket_array[basket_index].fillLvlItem)
-        {
-            return;
-        } else {
-            i++;
-        }
-    } 
-
-    if(basket_array[basket_index].basket_size_limit == 0 || basket_array[basket_index].basket_weight_limit == 0) {
-            basket_fill++;
-        }
-        basket_array[basket_index].basket_weight_limit += basket_array[basket_index].item_in_basket[i].item_weight;
-        basket_array[basket_index].basket_size_limit += basket_array[basket_index].item_in_basket[i].item_size;
-
-        basket_array[basket_index].item_in_basket[i].item_index = 0;
-        basket_array[basket_index].item_in_basket[i].item_size = 0;
-        basket_array[basket_index].item_in_basket[i].item_weight = 0;
-        basket_array[basket_index].item_in_basket[i].item_type = 'N';
-        basket_array[basket_index].item_in_basket[i].item_constraint = 'N';
-
-        item_fill++;
-
+        basket_fill++;
     }
+    if (basket_array[basket_index].item_list) 
+    {
+        /* code */
+    }
+    
+
+    // item_fill++;
+
+}
+
 
 bool check_item_type(g_basket basket, g_item item)
 {
@@ -286,29 +274,29 @@ bool check_item_type(g_basket basket, g_item item)
         }
 }
 
-bool check_item_conflict(g_basket basket, g_item item)
-{
-    int i = 0;
+// bool check_item_conflict(g_basket basket, g_item item)
+// {
+//     int i = 0;
 
-    while (i < basket.fillLvlItem)
-    {
-        if ((basket.item_in_basket[i].item_constraint == "XD" && item.item_type == 'D')
-        || (basket.item_in_basket[i].item_constraint == "XF" && item.item_type == 'F')
-        || (basket.item_in_basket[i].item_constraint == "XM" && item.item_type == 'M')
-        || (basket.item_in_basket[i].item_constraint == "XP" && item.item_type == 'P')
-        || (item.item_constraint == "XD" && basket.item_in_basket[i].item_type == 'D')
-        || (item.item_constraint == "XF" && basket.item_in_basket[i].item_type == 'F')
-        || (item.item_constraint == "XM" && basket.item_in_basket[i].item_type == 'M')
-        || (item.item_constraint == "XP" && basket.item_in_basket[i].item_type == 'P'))
-        {
-            return false;
-        } else {
-            i++;
-        }
-    }
-    return true;
+//     while (i < basket.fillLvlItem)
+//     {
+//         if ((basket.item_in_basket[i].item_constraint == "XD" && item.item_type == 'D')
+//         || (basket.item_in_basket[i].item_constraint == "XF" && item.item_type == 'F')
+//         || (basket.item_in_basket[i].item_constraint == "XM" && item.item_type == 'M')
+//         || (basket.item_in_basket[i].item_constraint == "XP" && item.item_type == 'P')
+//         || (item.item_constraint == "XD" && basket.item_in_basket[i].item_type == 'D')
+//         || (item.item_constraint == "XF" && basket.item_in_basket[i].item_type == 'F')
+//         || (item.item_constraint == "XM" && basket.item_in_basket[i].item_type == 'M')
+//         || (item.item_constraint == "XP" && basket.item_in_basket[i].item_type == 'P'))
+//         {
+//             return false;
+//         } else {
+//             i++;
+//         }
+//     }
+//     return true;
     
-}
+// } Needs to be changed
 
 void flush()
 {

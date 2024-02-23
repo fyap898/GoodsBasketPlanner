@@ -38,12 +38,13 @@ typedef struct
     int item_weight;
     int item_size;
     string item_constraint;
+    bool in_bag;
 }g_item;
 
-struct itemList
+struct item_list
 {
-    itemList *next;
-    itemList *prev;
+    item_list *next;
+    item_list *prev;
     g_item data;
 };
 
@@ -56,6 +57,7 @@ typedef struct
     string basket_constraints;
     int fillLvlItem;
     g_item item_in_basket[MAX_ITEM];
+    //item_list* item_in_basket;
 }g_basket;
 
 

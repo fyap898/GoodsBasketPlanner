@@ -13,8 +13,9 @@ bool done = false;
 int main (){
 
     string item_data_file, basket_data_file;
-    itemList* item_list = new itemList;
-    itemList* head = item_list;
+    // itemList* item_list = new itemList;
+    // itemList* head = item_list;
+    g_item item_list[MAX_ITEM];
     int item_fill_lvl = 0;
     g_basket basket_list[MAX_BASKET];
     int basket_fill_lvl = 0;
