@@ -30,7 +30,8 @@ using namespace std;
 #define MAX_ITEM 50
 #define MAX_BASKET 50
 
-typedef struct 
+//Node
+typedef struct
 {
     int item_index;
     char item_type;
@@ -38,6 +39,13 @@ typedef struct
     int item_size;
     string item_constraint;
 }g_item;
+
+struct itemList
+{
+    itemList *next;
+    itemList *prev;
+    g_item data;
+};
 
 typedef struct 
 {
@@ -49,5 +57,7 @@ typedef struct
     int fillLvlItem;
     g_item item_in_basket[MAX_ITEM];
 }g_basket;
+
+
 
 #endif

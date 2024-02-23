@@ -26,32 +26,51 @@ void get_datafile(string& data_file, char indicator)
     infile.close();
 }
 
-void read_item_datafile(g_item item[], int& item_fill, string item_data_file)
+void read_item_datafile(itemList*& item, int& item_fill, string item_data_file)
 {
     ifstream infile(item_data_file);
+    itemList *head = item;
+    itemList *curr = head;
+    itemList *pred = nullptr;
+    curr->next = nullptr;
+    curr->prev = nullptr;
     int item_count;
 
     if (infile.is_open()) {
         
         while (infile >> item_count && item_count != 'E') {
 
-            infile >> item[item_fill].item_index
-                       >> item[item_fill].item_type
-                       >> item[item_fill].item_weight
-                       >> item[item_fill].item_size
-                       >> item[item_fill].item_constraint;
+            cout << item_count << endl;
+            infile >> curr->data.item_index
+                       >> curr->data.item_type
+                       >> curr->data.item_weight
+                       >> curr->data.item_size
+                       >> curr->data.item_constraint;
             item_fill++;
             item_count--;
+            
+            pred = curr;
+            curr = curr->next;
+            curr = new itemList;
+            curr->next = nullptr;
+            curr->prev = pred;
 
             if(item_count > 0)
             {
                 for (int i = 0; i < item_count && item_fill < MAX_ITEM; i++) {
-                    item[item_fill].item_index = item[item_fill - 1].item_index;
-                    item[item_fill].item_type = item[item_fill - 1].item_type;
-                    item[item_fill].item_weight = item[item_fill - 1].item_weight;
-                    item[item_fill].item_size = item[item_fill - 1].item_size;
-                    item[item_fill].item_constraint = item[item_fill - 1].item_constraint;
+                    cout << "dup\n";
+                    curr->data.item_index = pred->data.item_index;
+                    curr->data.item_type = pred->data.item_type;
+                    curr->data.item_weight = pred->data.item_weight;
+                    curr->data.item_size = pred->data.item_size;
+                    curr->data.item_constraint = pred->data.item_constraint;
                     item_fill++;
+
+                    pred = curr;
+                    curr = curr->next;
+                    curr = new itemList;
+                    curr->next = nullptr;
+                    curr->prev = pred;
                 }
             }
         }
@@ -61,39 +80,6 @@ void read_item_datafile(g_item item[], int& item_fill, string item_data_file)
         cout << "Unable to open file: " << item_data_file << endl;
     }
 
-    // if (infile.is_open()) {
-    //     while (infile.eof()|| item_fill < MAX_ITEM)
-    //     {
-    //         infile >> basket_count >>
-    //                     item[item_fill].item_index >> 
-    //                     item[item_fill].item_type >>
-    //                     item[item_fill].item_weight >>
-    //                     item[item_fill].item_size >>
-    //                     item[item_fill].item_constraint;
-            
-    //         if(basket_count > 1)
-    //         {
-    //             //decrement one bc of the first read in file
-    //             basket_count--;
-    //             while(basket_count > 0)
-    //             {
-    //                 item[item_fill + 1].item_index = item[item_fill].item_index;
-    //                 item[item_fill + 1].item_type = item[item_fill].item_type;
-    //                 item[item_fill + 1].item_weight = item[item_fill].item_weight;
-    //                 item[item_fill + 1].item_size = item[item_fill].item_size;
-    //                 item[item_fill + 1].item_constraint = item[item_fill].item_constraint;
-    //                 basket_count--;
-    //                 item_fill++;
-    //             }
-    //         } else 
-    //         {
-    //             item_fill++;
-    //         }
-    //     }
-    //     infile.close();
-    // } else {
-    //     cout << "Unable to open file: " << item_data_file << endl;
-    // }
     return;
 }
 
@@ -176,8 +162,6 @@ void view_basket_content(g_basket basket[], int basketFill)
         }
     }
 }
-
-
 
 void output_basket_info(g_basket basket)
 {

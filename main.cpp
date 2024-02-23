@@ -13,7 +13,8 @@ bool done = false;
 int main (){
 
     string item_data_file, basket_data_file;
-    g_item item_list[MAX_ITEM];
+    itemList* item_list = new itemList;
+    itemList* head = item_list;
     int item_fill_lvl = 0;
     g_basket basket_list[MAX_BASKET];
     int basket_fill_lvl = 0;
@@ -21,29 +22,47 @@ int main (){
 
     choice = start_message();
 
-    g_basket testBasket[2];
-    testBasket[0].basket_index = 1;
-    testBasket[0].basket_type = 'P';
-    testBasket[0].basket_weight_limit = 10;
-    testBasket[0].basket_size_limit = 20;
-    testBasket[0].basket_constraints = "XD";
-    testBasket[0].fillLvlItem = 2;
+    // g_basket testBasket[2];
+    // testBasket[0].basket_index = 1;
+    // testBasket[0].basket_type = 'P';
+    // testBasket[0].basket_weight_limit = 10;
+    // testBasket[0].basket_size_limit = 20;
+    // testBasket[0].basket_constraints = "XD";
+    // testBasket[0].fillLvlItem = 2;
 
-    testBasket[0].item_in_basket[0].item_index = 1;
-    testBasket[0].item_in_basket[0].item_type = 'P';
-    testBasket[0].item_in_basket[0].item_weight = 5;
-    testBasket[0].item_in_basket[0].item_size = 2;
-    testBasket[0].item_in_basket[0].item_constraint = "XF";
+    // testBasket[0].item_in_basket[0].item_index = 1;
+    // testBasket[0].item_in_basket[0].item_type = 'P';
+    // testBasket[0].item_in_basket[0].item_weight = 5;
+    // testBasket[0].item_in_basket[0].item_size = 2;
+    // testBasket[0].item_in_basket[0].item_constraint = "XF";
 
-    testBasket[0].item_in_basket[1].item_index = 2;
-    testBasket[0].item_in_basket[1].item_type = 'M';
-    testBasket[0].item_in_basket[1].item_weight = 4;
-    testBasket[0].item_in_basket[1].item_size = 6;
-    testBasket[0].item_in_basket[1].item_constraint = "XD";
+    // testBasket[0].item_in_basket[1].item_index = 2;
+    // testBasket[0].item_in_basket[1].item_type = 'M';
+    // testBasket[0].item_in_basket[1].item_weight = 4;
+    // testBasket[0].item_in_basket[1].item_size = 6;
+    // testBasket[0].item_in_basket[1].item_constraint = "XD";
+
+    // testBasket[0].item_in_basket[0] = testBasket[0].item_in_basket[1];
     
 
-    view_basket_content(testBasket, testBasket[0].fillLvlItem);
+    // view_basket_content(testBasket, testBasket[0].fillLvlItem);
 
+    // const int fillTest = 10;
+    // int test[fillTest];
+
+    // for(int i = 0; i < fillTest; i++)
+    // {
+    //     test[i] = i + 1;
+    // }
+
+    // shift_for_remove(test, 5, fillTest);
+
+    // int newFill = fillTest;
+
+    // for(int i = 0; i < newFill; i++)
+    // {
+    //     cout << test[i] << endl;
+    // }
 
     switch (choice)
     {
@@ -63,24 +82,28 @@ int main (){
         break;
     }
     
+    itemList* curr = head;
 
-    for(int i = 0; i < item_fill_lvl; i++)
+    for(int i = 0; i < item_fill_lvl && curr != nullptr; i++)
     {
-        cout << item_list[i].item_index << ' '
-             << item_list[i].item_weight << ' '
-             << item_list[i].item_type << ' '
-             << item_list[i].item_size << ' '
-             << item_list[i].item_constraint << '\n';
+        cout << curr->data.item_index << ' '
+             << curr->data.item_weight << ' '
+             << curr->data.item_type << ' '
+             << curr->data.item_size << ' '
+             << curr->data.item_constraint << '\n';
+        
+        curr = curr->next;
+
     }
 
-    for(int i = 0; i < basket_fill_lvl; i++)
-    {
-        cout << basket_list[i].basket_index << ' '
-             << basket_list[i].basket_type << ' '
-             << basket_list[i].basket_weight_limit << ' '
-             << basket_list[i].basket_size_limit << ' '
-             << basket_list[i].basket_constraints << '\n';
-    }
+    // for(int i = 0; i < basket_fill_lvl; i++)
+    // {
+    //     cout << basket_list[i].basket_index << ' '
+    //          << basket_list[i].basket_type << ' '
+    //          << basket_list[i].basket_weight_limit << ' '
+    //          << basket_list[i].basket_size_limit << ' '
+    //          << basket_list[i].basket_constraints << '\n';
+    // }
 
     return 0;
 }

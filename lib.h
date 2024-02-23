@@ -14,7 +14,7 @@ void get_datafile(string& data_file, char indicator);
 /*
 Description: Read data from the item's input file
 */
-void read_item_datafile(g_item item[], int& itemFill, string item_data_file);
+void read_item_datafile(itemList*& item, int& itemFill, string item_data_file);
 
 /*
 Description: Read data from the basket's input file
@@ -31,6 +31,9 @@ Description: Display basket's content
 */
 void view_basket_content(g_basket basket[], int basketFill);
 
+/*
+Description: Output basket's info
+*/
 void output_basket_info(g_basket basket);
 
 /*
