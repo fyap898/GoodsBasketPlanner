@@ -29,7 +29,7 @@ int main (){
     // testBasket[0].basket_weight_limit = 10;
     // testBasket[0].basket_size_limit = 20;
     // testBasket[0].basket_constraints = "XD";
-    // testBasket[0].fillLvlItem = 2;
+    // testBasket[0].fill_lvl_item = 2;
 
     // testBasket[0].item_in_basket[0].item_index = 1;
     // testBasket[0].item_in_basket[0].item_type = 'P';
@@ -46,7 +46,7 @@ int main (){
     // testBasket[0].item_in_basket[0] = testBasket[0].item_in_basket[1];
     
 
-    // view_basket_content(testBasket, testBasket[0].fillLvlItem);
+    // view_basket_content(testBasket, testBasket[0].fill_lvl_item);
 
     // const int fillTest = 10;
     // int test[fillTest];

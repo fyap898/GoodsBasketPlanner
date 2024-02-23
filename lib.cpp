@@ -104,7 +104,7 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
                        >> basket[basket_fill].basket_weight_limit
                        >> basket[basket_fill].basket_size_limit
                        >> basket[basket_fill].basket_constraints;  
-            basket[basket_fill].fillLvlItem = 0;
+            basket[basket_fill].fill_lvl_item = 0;
             basket_fill++;
             basket_count--;
 
@@ -116,7 +116,7 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
                     basket[basket_fill].basket_weight_limit = basket[basket_fill - 1].basket_weight_limit;
                     basket[basket_fill].basket_size_limit = basket[basket_fill - 1].basket_size_limit;
                     basket[basket_fill].basket_constraints = basket[basket_fill - 1].basket_constraints;
-                    basket[basket_fill].fillLvlItem = basket[basket_fill - 1].fillLvlItem;
+                    basket[basket_fill].fill_lvl_item = basket[basket_fill - 1].fill_lvl_item;
                     basket_fill++;
                 }
             }
@@ -159,7 +159,7 @@ void view_basket_content(g_basket basket[], int basketFill)
                 << "No. | Type   | Weight     | Size     | Constraint\n" 
                 << "-------------------------------------------------\n";
 
-            for(int j = 0; j < basket[i].fillLvlItem; j++)
+            for(int j = 0; j < basket[i].fill_lvl_item; j++)
             {
                 cout << basket[i].item_in_basket[j].item_index << "\t"
                     << basket[i].item_in_basket[j].item_type << "\t\t"
@@ -287,7 +287,7 @@ bool check_item_type(g_basket basket, g_item item)
 // {
 //     int i = 0;
 
-//     while (i < basket.fillLvlItem)
+//     while (i < basket.fill_lvl_item)
 //     {
 //         if ((basket.item_in_basket[i].item_constraint == "XD" && item.item_type == 'D')
 //         || (basket.item_in_basket[i].item_constraint == "XF" && item.item_type == 'F')
