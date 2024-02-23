@@ -26,19 +26,32 @@ void get_datafile(string& data_file, char indicator)
     infile.close();
 }
 
-void read_item_datafile(itemList*& item, int& item_fill, string item_data_file)
+itemList* read_item_datafile(int& item_fill, string item_data_file)
 {
     ifstream infile(item_data_file);
-    itemList *head = item;
-    itemList *curr = head;
+    itemList *head = nullptr;
+    itemList *curr = nullptr;
     itemList *pred = nullptr;
-    curr->next = nullptr;
-    curr->prev = nullptr;
     int item_count;
 
     if (infile.is_open()) {
         
         while (infile >> item_count && item_count != 'E') {
+
+            if(head == nullptr)
+            {
+                head = new itemList;
+                curr = head;
+                cout << head << endl << curr << endl;
+                curr->next = nullptr;
+                curr->prev = nullptr;
+            } else {
+                pred = curr;
+                curr = curr->next;
+                curr = new itemList;
+                curr->next = nullptr;
+                curr->prev = pred;
+            }
 
             cout << item_count << endl;
             infile >> curr->data.item_index
@@ -46,41 +59,37 @@ void read_item_datafile(itemList*& item, int& item_fill, string item_data_file)
                        >> curr->data.item_weight
                        >> curr->data.item_size
                        >> curr->data.item_constraint;
+            cout << curr << endl;
             item_fill++;
             item_count--;
-            
-            pred = curr;
-            curr = curr->next;
-            curr = new itemList;
-            curr->next = nullptr;
-            curr->prev = pred;
 
             if(item_count > 0)
             {
                 for (int i = 0; i < item_count && item_fill < MAX_ITEM; i++) {
                     cout << "dup\n";
+                    pred = curr;
+                    curr = curr->next;
+                    curr = new itemList;
+                    curr->next = nullptr;
+                    curr->prev = pred;
+
                     curr->data.item_index = pred->data.item_index;
                     curr->data.item_type = pred->data.item_type;
                     curr->data.item_weight = pred->data.item_weight;
                     curr->data.item_size = pred->data.item_size;
                     curr->data.item_constraint = pred->data.item_constraint;
                     item_fill++;
-
-                    pred = curr;
-                    curr = curr->next;
-                    curr = new itemList;
-                    curr->next = nullptr;
-                    curr->prev = pred;
+                    cout << curr << endl;
                 }
             }
         }
 
         infile.close();
+        return head;
     } else {
         cout << "Unable to open file: " << item_data_file << endl;
+        return NULL;
     }
-
-    return;
 }
 
 void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_data_file)
