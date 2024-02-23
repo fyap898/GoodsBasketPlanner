@@ -13,9 +13,8 @@ bool done = false;
 int main (){
 
     string item_data_file, basket_data_file;
-    // itemList* item_list = new itemList;
-    // itemList* head = item_list;
-    g_item item_list[MAX_ITEM];
+    item_list* item_List;
+    item_list* head_item_list;
     int item_fill_lvl = 0;
     g_basket basket_list[MAX_BASKET];
     int basket_fill_lvl = 0;
@@ -69,7 +68,8 @@ int main (){
     {
     case 1:
         get_datafile(item_data_file, 'I');
-        read_item_datafile(item_list, item_fill_lvl, item_data_file);
+        item_List = read_item_datafile(item_fill_lvl, item_data_file);
+        head_item_list = item_List;
 
         get_datafile(basket_data_file, 'B');
         read_basket_datafile(basket_list, basket_fill_lvl, basket_data_file);
@@ -82,20 +82,18 @@ int main (){
     default:
         break;
     }
-    
-    itemList* curr = head;
 
-    for(int i = 0; i < item_fill_lvl && curr != nullptr; i++)
-    {
-        cout << curr->data.item_index << ' '
-             << curr->data.item_weight << ' '
-             << curr->data.item_type << ' '
-             << curr->data.item_size << ' '
-             << curr->data.item_constraint << '\n';
+    // for(int i = 0; i < item_fill_lvl && head != nullptr; i++)
+    // {
+    //     cout << head->data.item_index << ' '
+    //          << head->data.item_weight << ' '
+    //          << head->data.item_type << ' '
+    //          << head->data.item_size << ' '
+    //          << head->data.item_constraint << '\n';
         
-        curr = curr->next;
+    //     head = head->next;
 
-    }
+    // }
 
     // for(int i = 0; i < basket_fill_lvl; i++)
     // {

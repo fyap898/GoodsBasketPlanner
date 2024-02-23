@@ -26,29 +26,33 @@ void get_datafile(string& data_file, char indicator)
     infile.close();
 }
 
-itemList* read_item_datafile(int& item_fill, string item_data_file)
+item_list* read_item_datafile(int& item_fill, string item_data_file)
 {
     ifstream infile(item_data_file);
-    itemList *head = nullptr;
-    itemList *curr = nullptr;
-    itemList *pred = nullptr;
+    item_list* head = NULL;
+    item_list* curr;
+    item_list* pred;
     int item_count;
 
     if (infile.is_open()) {
         
         while (infile >> item_count && item_count != 'E') {
 
-            if(head == nullptr)
+            if(head == NULL)
             {
-                head = new itemList;
+                cout << head << endl;
+                head = new item_list;
                 curr = head;
-                cout << head << endl << curr << endl;
+                cout << "then" << head << endl << curr << endl;
                 curr->next = nullptr;
                 curr->prev = nullptr;
             } else {
                 pred = curr;
+                cout << "else";
+                cout << curr << endl;
+                curr->next = new item_list;
                 curr = curr->next;
-                curr = new itemList;
+                cout << curr << endl;
                 curr->next = nullptr;
                 curr->prev = pred;
             }
@@ -68,8 +72,8 @@ itemList* read_item_datafile(int& item_fill, string item_data_file)
                 for (int i = 0; i < item_count && item_fill < MAX_ITEM; i++) {
                     cout << "dup\n";
                     pred = curr;
+                    curr->next = new item_list;
                     curr = curr->next;
-                    curr = new itemList;
                     curr->next = nullptr;
                     curr->prev = pred;
 
@@ -243,7 +247,7 @@ void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill,
 {
 
     int i = 0;
-    item_list* head_pointer = basket_array[basket_index]->item_in_basket;
+    // item_list* head_pointer = basket_array[basket_index]->item_in_basket;
 
     if (basket_index < 0 || basket_index > MAX_BASKET) {
         cout << "Invalid basket index" << endl;
@@ -259,10 +263,10 @@ void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill,
     {
         basket_fill++;
     }
-    if (basket_array[basket_index].item_list) 
-    {
-        /* code */
-    }
+    // if (basket_array[basket_index].item_list) 
+    // {
+    //     /* code */
+    // }
     
 
     // item_fill++;
@@ -283,29 +287,29 @@ bool check_item_type(g_basket basket, g_item item)
         }
 }
 
-// bool check_item_conflict(g_basket basket, g_item item)
-// {
-//     int i = 0;
+bool check_item_conflict(g_basket basket, g_item item)
+{
+    int i = 0;
 
-//     while (i < basket.fill_lvl_item)
-//     {
-//         if ((basket.item_in_basket[i].item_constraint == "XD" && item.item_type == 'D')
-//         || (basket.item_in_basket[i].item_constraint == "XF" && item.item_type == 'F')
-//         || (basket.item_in_basket[i].item_constraint == "XM" && item.item_type == 'M')
-//         || (basket.item_in_basket[i].item_constraint == "XP" && item.item_type == 'P')
-//         || (item.item_constraint == "XD" && basket.item_in_basket[i].item_type == 'D')
-//         || (item.item_constraint == "XF" && basket.item_in_basket[i].item_type == 'F')
-//         || (item.item_constraint == "XM" && basket.item_in_basket[i].item_type == 'M')
-//         || (item.item_constraint == "XP" && basket.item_in_basket[i].item_type == 'P'))
-//         {
-//             return false;
-//         } else {
-//             i++;
-//         }
-//     }
-//     return true;
+    while (i < basket.fill_lvl_item)
+    {
+        if ((basket.item_in_basket[i].item_constraint == "XD" && item.item_type == 'D')
+        || (basket.item_in_basket[i].item_constraint == "XF" && item.item_type == 'F')
+        || (basket.item_in_basket[i].item_constraint == "XM" && item.item_type == 'M')
+        || (basket.item_in_basket[i].item_constraint == "XP" && item.item_type == 'P')
+        || (item.item_constraint == "XD" && basket.item_in_basket[i].item_type == 'D')
+        || (item.item_constraint == "XF" && basket.item_in_basket[i].item_type == 'F')
+        || (item.item_constraint == "XM" && basket.item_in_basket[i].item_type == 'M')
+        || (item.item_constraint == "XP" && basket.item_in_basket[i].item_type == 'P'))
+        {
+            return false;
+        } else {
+            i++;
+        }
+    }
+    return true;
     
-// } Needs to be changed
+} //Needs to be changed
 
 void flush()
 {

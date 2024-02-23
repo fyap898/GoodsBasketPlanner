@@ -14,7 +14,7 @@ void get_datafile(string& data_file, char indicator);
 /*
 Description: Read data from the item's input file
 */
-void read_item_datafile(itemList*& item, int& itemFill, string item_data_file);
+item_list* read_item_datafile(int& itemFill, string item_data_file);
 
 /*
 Description: Read data from the basket's input file
