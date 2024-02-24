@@ -162,8 +162,7 @@ void view_basket_content(g_basket basket[], int basket_count)
                 << "-------------------------------------------------\n";
 
             curr = basket[i].item_in_basket;
-            cout << basket[i].item_in_basket << endl;
-            cout << curr << " before\n";
+            
             for(int j = 0; j < basket[i].fill_lvl_item && curr != NULL; j++)
             {
                 cout << curr->data.item_index << "\t"
@@ -329,6 +328,57 @@ void insertion(item_list*& head, item_list* item)
     curr->data = item->data;
 
 }
+
+void deletion(item_list*& basket, int index, item_list*& item)
+{
+    item_list* curr = basket;
+    item_list* remove = NULL;
+    item_list* pred = NULL;
+    item_list* succ = NULL;
+    for(int i = 0; i < index; i++)
+    {
+        if(curr == NULL)
+        {
+            cout << RED << "\t---List is empty---\n\n";
+            return;
+        }
+        curr = curr->next;
+    }
+
+    if(curr == basket) //first node
+    {
+        remove = curr;
+        basket = curr->next;
+        basket->prev = nullptr;
+        curr->next = nullptr;
+        curr->prev = nullptr;
+
+    } else if (curr->next == NULL) //last node
+    {
+        remove = curr;
+        pred = curr->prev;
+        pred->next = nullptr;
+        curr->next = nullptr;
+        curr->prev = nullptr;
+
+    } else if(curr->next != NULL && curr->prev != NULL) //middle node
+    {
+        remove = curr;
+        pred = curr->prev;
+        succ = curr->next;
+        pred->next = succ;
+        succ->prev = pred;
+        curr->next = nullptr;
+        curr->prev = nullptr;
+    }
+
+    curr->prev->next = curr->next;
+    curr->next->prev = curr->prev;
+
+    insertion(item, remove);
+
+}
+
 
 void flush()
 {
