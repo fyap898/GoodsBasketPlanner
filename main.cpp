@@ -17,52 +17,44 @@ int main (){
     item_list* item_head_ptr;
     int item_fill_lvl = 0;
     g_basket basket_list[MAX_BASKET];
+    item_list* basket_item_headptr;
     int basket_fill_lvl = 0;
     int choice;
 
     choice = start_message();
 
-    // g_basket testBasket[2];
-    // testBasket[0].basket_index = 1;
-    // testBasket[0].basket_type = 'P';
-    // testBasket[0].basket_weight_limit = 10;
-    // testBasket[0].basket_size_limit = 20;
-    // testBasket[0].basket_constraints = "XD";
-    // testBasket[0].fill_lvl_item = 2;
+    g_basket testBasket[1];
 
-    // testBasket[0].item_in_basket[0].item_index = 1;
-    // testBasket[0].item_in_basket[0].item_type = 'P';
-    // testBasket[0].item_in_basket[0].item_weight = 5;
-    // testBasket[0].item_in_basket[0].item_size = 2;
-    // testBasket[0].item_in_basket[0].item_constraint = "XF";
+    testBasket[0].basket_index = 1;
+    testBasket[0].basket_type = 'P';
+    testBasket[0].basket_weight_limit = 10;
+    testBasket[0].basket_size_limit = 20;
+    testBasket[0].basket_constraints = "XD";
+    testBasket[0].fill_lvl_item = 3;
+    testBasket[0].item_in_basket = new item_list;
 
-    // testBasket[0].item_in_basket[1].item_index = 2;
-    // testBasket[0].item_in_basket[1].item_type = 'M';
-    // testBasket[0].item_in_basket[1].item_weight = 4;
-    // testBasket[0].item_in_basket[1].item_size = 6;
-    // testBasket[0].item_in_basket[1].item_constraint = "XD";
+    item_list* test = testBasket[0].item_in_basket;
 
-    // testBasket[0].item_in_basket[0] = testBasket[0].item_in_basket[1];
+    test->data.item_index = 1;
+    test->data.item_type = 'P';
+    test->data.item_weight = 5;
+    test->data.item_size = 2;
+    test->data.item_constraint = "XF";
+
+    test->next = new item_list;
+    test = test->next;
+    test->data.item_index = 2;
+    test->data.item_type = 'M';
+    test->data.item_weight = 4;
+    test->data.item_size = 6;
+    test->data.item_constraint = "XD";
+
+    item_list* test2 = test;
+
+    insertion(test, test2);
     
+    view_basket_content(testBasket, 1);
 
-    // view_basket_content(testBasket, testBasket[0].fill_lvl_item);
-
-    // const int fillTest = 10;
-    // int test[fillTest];
-
-    // for(int i = 0; i < fillTest; i++)
-    // {
-    //     test[i] = i + 1;
-    // }
-
-    // shift_for_remove(test, 5, fillTest);
-
-    // int newFill = fillTest;
-
-    // for(int i = 0; i < newFill; i++)
-    // {
-    //     cout << test[i] << endl;
-    // }
 
     switch (choice)
     {

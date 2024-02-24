@@ -55,6 +55,12 @@ bool check_item_type(g_basket basket, g_item item);
 Description: Checks if any items already in basket already
 */
 bool check_item_conflict(g_basket basket, g_item item);
+
+/*
+Description: Insert item into the end of the list
+*/
+void insertion(item_list*& head, item_list* item);
+
 /*
 Description: Clears buffer
 */

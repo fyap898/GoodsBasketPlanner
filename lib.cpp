@@ -144,12 +144,14 @@ int menu()
 } 
 
 // Needs to be changed if struct changes
-void view_basket_content(g_basket basket[], int basketFill)
+void view_basket_content(g_basket basket[], int basket_count)
 {
+    item_list* curr;
+
     cout << "\nDisplaying all basket's content...\n"
         << "-------------------------------------------------\n";
 
-    for(int i = 0; i < basketFill; i++)
+    for(int i = 0; i < basket_count; i++)
     {
         if(basket[i].basket_index != 0)
         {
@@ -159,13 +161,18 @@ void view_basket_content(g_basket basket[], int basketFill)
                 << "No. | Type   | Weight     | Size     | Constraint\n" 
                 << "-------------------------------------------------\n";
 
-            for(int j = 0; j < basket[i].fill_lvl_item; j++)
+            curr = basket[i].item_in_basket;
+            cout << basket[i].item_in_basket << endl;
+            cout << curr << " before\n";
+            for(int j = 0; j < basket[i].fill_lvl_item && curr != NULL; j++)
             {
-                cout << basket[i].item_in_basket[j].item_index << "\t"
-                    << basket[i].item_in_basket[j].item_type << "\t\t"
-                    << basket[i].item_in_basket[j].item_weight << "\t\t\t"
-                    << basket[i].item_in_basket[j].item_size << "\t\t"
-                    << basket[i].item_in_basket[j].item_constraint << "\n";
+                cout << curr->data.item_index << "\t"
+                    << curr->data.item_type << "\t\t"
+                    << curr->data.item_weight << "\t\t\t"
+                    << curr->data.item_size << "\t\t"
+                    << curr->data.item_constraint << "\n";
+                
+                curr = curr->next;
             }
             cout <<"-------------------------------------------------\n"
                 << endl;
@@ -238,7 +245,6 @@ void add_item(g_basket basket_array[], g_item item_array[], int& basket_fill, in
 
 }
 
-
 void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index) 
 {
 
@@ -268,7 +274,6 @@ void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill,
     // item_fill++;
 
 }
-
 
 bool check_item_type(g_basket basket, g_item item)
 {
@@ -306,6 +311,24 @@ bool check_item_conflict(g_basket basket, g_item item)
     return true;
     
 } //Needs to be changed
+
+void insertion(item_list*& head, item_list* item)
+{
+    item_list* curr = head;
+    item_list* pred = nullptr;
+
+    while(curr->next != NULL)
+    {
+        curr = curr->next;
+    }
+    curr->next = new item_list;
+    pred = curr;
+    curr = curr->next;
+    curr->next = NULL;
+    curr->prev = pred;
+    curr->data = item->data;
+
+}
 
 void flush()
 {
