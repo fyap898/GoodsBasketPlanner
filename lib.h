@@ -39,7 +39,7 @@ void output_basket_info(g_basket basket);
 /*
 Description: Add single item to a basket
 */
-void add_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index);
+void add_item(g_basket basket, int& basket_fill, int& item_fill, item_list* item);
 
 /*
 Description: Removes a single item from a basket
@@ -49,17 +49,17 @@ void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill,
 /*
 Description: Checks if item is able to go in a basket based on constraints of the basket
 */
-bool check_item_type(g_basket basket, g_item item);
+bool check_item_type(g_basket basket, item_list* item);
 
 /*
 Description: Checks if any items already in basket already
 */
-bool check_item_conflict(g_basket basket, g_item item);
+bool check_item_conflict(item_list* head, item_list* item);
 
 /*
 Description: Insert item into the end of the list
 */
-void insertion(item_list*& head, item_list* item);
+void insertion(item_list*& head, item_list*& item);
 
 /*
 Description: Clears buffer

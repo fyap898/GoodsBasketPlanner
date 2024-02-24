@@ -30,7 +30,7 @@ using namespace std;
 #define MAX_ITEM 50
 #define MAX_BASKET 50
 
-//Node
+//Item struct
 typedef struct
 {
     int item_index;
@@ -38,9 +38,10 @@ typedef struct
     int item_weight;
     int item_size;
     string item_constraint;
-    bool in_bag;
+    bool in_basket;
 }g_item;
 
+//Nodes for dooubly linked list
 struct item_list
 {
     item_list *next;

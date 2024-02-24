@@ -42,13 +42,13 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
             {
                 head = new item_list;
                 curr = head;
-                curr->next = nullptr;
-                curr->prev = nullptr;
+                curr->next = NULL;
+                curr->prev = NULL;
             } else {
                 pred = curr;
                 curr->next = new item_list;
                 curr = curr->next;
-                curr->next = nullptr;
+                curr->next = NULL;
                 curr->prev = pred;
             }
 
@@ -57,7 +57,7 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
                        >> curr->data.item_weight
                        >> curr->data.item_size
                        >> curr->data.item_constraint;
-            curr->data.in_bag = false;
+            curr->data.in_basket = false;
 
             item_fill++;
             item_count--;
@@ -68,7 +68,7 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
                     pred = curr;
                     curr->next = new item_list;
                     curr = curr->next;
-                    curr->next = nullptr;
+                    curr->next = NULL;
                     curr->prev = pred;
 
                     curr->data.item_index = pred->data.item_index;
@@ -76,7 +76,7 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
                     curr->data.item_weight = pred->data.item_weight;
                     curr->data.item_size = pred->data.item_size;
                     curr->data.item_constraint = pred->data.item_constraint;
-                    curr->data.in_bag = false;
+                    curr->data.in_basket = false;
                     item_fill++;
                 }
             }
@@ -217,115 +217,127 @@ void output_basket_info(g_basket basket)
     
 }
 
-void add_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index)
+void add_item(g_basket basket, int& basket_fill, int& item_fill, item_list* item)
 {
-
-    int i = 0;
-
-    if (basket_index < 0 || basket_index > basket_fill) {
-        cout << "Invalid basket index" << endl;
-        return;
-    }
-    if (item_index < 0 || item_index > item_fill) {
-        cout << "Invalid item index" << endl;
-        return;
-    }
-    if (basket_array[basket_index].basket_weight_limit == 0 || basket_array[basket_index].basket_size_limit == 0)
+    if (basket.basket_size_limit == 0 || basket.basket_weight_limit == 0)
     {
-        cout << "Basket is Full" << endl;
+        cout << "Basket Full" << endl;
         return;
     }
-    if (!check_item_conflict(basket_array[basket_index], item_array[item_index]) 
-        || !check_item_type(basket_array[basket_index], item_array[item_index]))
+    if (check_item_type(basket, item) || check_item_conflict(basket.item_in_basket, item))
     {
         cout << "Item Conflict" << endl;
         return;
     }
+    if (item->data.in_basket == true)
+    {
+        cout << "Item already in bag" << endl;
+        return;
+    }
+    insertion(basket.item_in_basket, item);
 
+    basket.basket_size_limit -= item->data.item_size;
+    basket.basket_weight_limit -= item->data.item_weight;
+    item_fill--;
+    if (basket.basket_size_limit == 0 || basket.basket_weight_limit == 0)
+    {
+        basket_fill--;
+    }
+    return;
 }
 
-void remove_item(g_basket basket_array[], g_item item_array[], int& basket_fill, int& item_fill, int basket_index, int item_index) 
+void remove_item(g_basket basket, int& basket_fill, int& item_fill, item_list* item) 
 {
 
-    int i = 0;
-    // item_list* head_pointer = basket_array[basket_index]->item_in_basket;
+    // int i = 0;
+    // // item_list* head_pointer = basket_array[basket_index]->item_in_basket;
 
-    if (basket_index < 0 || basket_index > MAX_BASKET) {
-        cout << "Invalid basket index" << endl;
-        return;
-    }
-    if (item_index < 0 || item_index > MAX_ITEM) {
-        cout << "Invalid item index" << endl;
-        return;
-    }
-
-    // If a full basket has an item removed, it becomes available to be in use again.
-    if (basket_array[basket_index].basket_weight_limit == 0 || basket_array[basket_index].basket_size_limit == 0)
-    {
-        basket_fill++;
-    }
-    // if (basket_array[basket_index].item_list) 
-    // {
-    //     /* code */
+    // if (basket_index < 0 || basket_index > MAX_BASKET) {
+    //     cout << "Invalid basket index" << endl;
+    //     return;
     // }
+    // if (item_index < 0 || item_index > MAX_ITEM) {
+    //     cout << "Invalid item index" << endl;
+    //     return;
+    // }
+
+    // // If a full basket has an item removed, it becomes available to be in use again.
+    // if (basket_array[basket_index].basket_weight_limit == 0 || basket_array[basket_index].basket_size_limit == 0)
+    // {
+    //     basket_fill++;
+    // }
+    // // if (basket_array[basket_index].item_list) 
+    // // {
+    // //     /* code */
+    // // }
     
 
-    // item_fill++;
+    // // item_fill++;
 
 }
 
-bool check_item_type(g_basket basket, g_item item)
+bool check_item_type(g_basket basket, item_list* item)
 {
-    if ((basket.basket_constraints == "XD" && item.item_type == 'D')
-        || (basket.basket_constraints == "XF" && item.item_type == 'F')
-        || (basket.basket_constraints == "XM" && item.item_type == 'M')
-        || (basket.basket_constraints == "XP" && item.item_type == 'P')) 
+    if ((basket.basket_constraints == "XD" && item->data.item_type == 'D')
+        || (basket.basket_constraints == "XF" && item->data.item_type == 'F')
+        || (basket.basket_constraints == "XM" && item->data.item_type == 'M')
+        || (basket.basket_constraints == "XP" && item->data.item_type == 'P')) 
         {
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
 }
 
-bool check_item_conflict(g_basket basket, g_item item)
-{
-    int i = 0;
-
-    while (i < basket.fill_lvl_item)
-    {
-        if ((basket.item_in_basket[i].item_constraint == "XD" && item.item_type == 'D')
-        || (basket.item_in_basket[i].item_constraint == "XF" && item.item_type == 'F')
-        || (basket.item_in_basket[i].item_constraint == "XM" && item.item_type == 'M')
-        || (basket.item_in_basket[i].item_constraint == "XP" && item.item_type == 'P')
-        || (item.item_constraint == "XD" && basket.item_in_basket[i].item_type == 'D')
-        || (item.item_constraint == "XF" && basket.item_in_basket[i].item_type == 'F')
-        || (item.item_constraint == "XM" && basket.item_in_basket[i].item_type == 'M')
-        || (item.item_constraint == "XP" && basket.item_in_basket[i].item_type == 'P'))
-        {
-            return false;
-        } else {
-            i++;
-        }
-    }
-    return true;
-    
-} //Needs to be changed
-
-void insertion(item_list*& head, item_list* item)
+bool check_item_conflict(item_list* head, item_list* item)
 {
     item_list* curr = head;
-    item_list* pred = nullptr;
 
-    while(curr->next != NULL)
+    while (curr->next != NULL)
+    {
+        if ((curr->data.item_constraint == "XD" && item->data.item_type == 'D')
+            || (curr->data.item_constraint == "XF" && item->data.item_type == 'F')
+            || (curr->data.item_constraint == "XM" && item->data.item_type == 'M')
+            || (curr->data.item_constraint == "XP" && item->data.item_type == 'P')
+            || (curr->data.item_type == 'D' && item->data.item_constraint == "XD")
+            || (curr->data.item_type == 'F' && item->data.item_constraint == "XF")
+            || (curr->data.item_type == 'M' && item->data.item_constraint == "XM")
+            || (curr->data.item_type == 'P' && item->data.item_constraint == "XP")) 
+        {
+            return true;
+        }
+        curr = curr->next;
+    }
+    return false;
+    
+} 
+
+void insertion(item_list*& head, item_list*& item)
+{
+    item_list* curr = head;
+    // item_list* pred = NULL;
+    item_list* new_item = new item_list;
+
+    new_item->data = item->data;
+    new_item->next = NULL;
+
+    if (head == NULL)
+    {
+        new_item->prev = NULL;
+        head = new_item;
+        return;
+    }
+
+    while (curr->next != NULL)
     {
         curr = curr->next;
     }
-    curr->next = new item_list;
-    pred = curr;
-    curr = curr->next;
-    curr->next = NULL;
-    curr->prev = pred;
-    curr->data = item->data;
+
+    curr->next = new_item;
+    new_item->prev = curr;
+    item->data.in_basket = true;
+
+    return;
 
 }
 
@@ -342,24 +354,24 @@ void deletion(item_list*& basket, int index, item_list*& item)
             cout << RED << "\t---List is empty---\n\n";
             return;
         }
-        curr = curr->next;
+        // curr = curr->next;
     }
 
-    if(curr == basket) //first node
+    if(curr == item) //first node
     {
         remove = curr;
         basket = curr->next;
-        basket->prev = nullptr;
-        curr->next = nullptr;
-        curr->prev = nullptr;
+        basket->prev = NULL;
+        curr->next = NULL;
+        curr->prev = NULL;
 
     } else if (curr->next == NULL) //last node
     {
         remove = curr;
         pred = curr->prev;
-        pred->next = nullptr;
-        curr->next = nullptr;
-        curr->prev = nullptr;
+        pred->next = NULL;
+        curr->next = NULL;
+        curr->prev = NULL;
 
     } else if(curr->next != NULL && curr->prev != NULL) //middle node
     {
@@ -368,14 +380,14 @@ void deletion(item_list*& basket, int index, item_list*& item)
         succ = curr->next;
         pred->next = succ;
         succ->prev = pred;
-        curr->next = nullptr;
-        curr->prev = nullptr;
+        curr->next = NULL;
+        curr->prev = NULL;
     }
 
     curr->prev->next = curr->next;
     curr->next->prev = curr->prev;
 
-    insertion(item, remove);
+    // insertion(item, remove);
 
 }
 
