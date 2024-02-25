@@ -13,14 +13,14 @@ void get_datafile(string& data_file, char indicator)
     }
     cin >> data_file;
 
-    infile.open(data_file);
+    infile.open(data_file.c_str());
 
     while(!infile.is_open())
     {
         cout << RED << "\t---ERROR FILE INPUT---\n\n";
         cout << GREEN << "Enter Info (file.txt)\n" << WHITE;
         cin >> data_file;
-        infile.open(data_file);
+        infile.open(data_file.c_str());
     }
 
     infile.close();
@@ -28,7 +28,7 @@ void get_datafile(string& data_file, char indicator)
 
 item_list* read_item_datafile(int& item_fill, string item_data_file)
 {
-    ifstream infile(item_data_file);
+    ifstream infile(item_data_file.c_str());
     item_list* head = NULL;
     item_list* curr;
     item_list* pred;
@@ -92,7 +92,7 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
 
 void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_data_file)
 {
-    ifstream infile(basket_data_file);
+    ifstream infile(basket_data_file.c_str());
     int basket_count;
     
     if (infile.is_open()) {
@@ -163,7 +163,7 @@ void view_basket_content(g_basket basket[], int basket_count)
 
             curr = basket[i].item_in_basket;
             
-            for(int j = 0; j < basket[i].fill_lvl_item && curr != NULL; j++)
+            while (curr->next != NULL)
             {
                 cout << curr->data.item_index << "\t"
                     << curr->data.item_type << "\t\t"
@@ -341,53 +341,40 @@ void insertion(item_list*& head, item_list*& item)
 
 }
 
-void deletion(item_list*& basket, int index, item_list*& item)
+void deletion(item_list*& basket, item_list*& item)
 {
+    
+    if (basket == NULL)
+    {
+	return;
+    }
+
     item_list* curr = basket;
-    item_list* remove = NULL;
-    item_list* pred = NULL;
-    item_list* succ = NULL;
-    for(int i = 0; i < index; i++)
+    while (curr != NULL)
     {
-        if(curr == NULL)
-        {
-            cout << RED << "\t---List is empty---\n\n";
-            return;
-        }
-        // curr = curr->next;
+	if (curr->data.item_index == item->data.item_index)
+	{
+	    if (curr == basket)
+	    {
+		basket = curr->next;
+	    }
+
+	    if (curr->prev != NULL)
+	    {
+		curr->prev->next = curr->next;
+	    }
+
+	    if (curr->next != NULL)
+	    {
+		curr->next->prev = curr->prev;
+	    }
+
+	    delete curr;
+	    return;
+	}
+	curr = curr->next;
     }
-
-    if(curr == item) //first node
-    {
-        remove = curr;
-        basket = curr->next;
-        basket->prev = NULL;
-        curr->next = NULL;
-        curr->prev = NULL;
-
-    } else if (curr->next == NULL) //last node
-    {
-        remove = curr;
-        pred = curr->prev;
-        pred->next = NULL;
-        curr->next = NULL;
-        curr->prev = NULL;
-
-    } else if(curr->next != NULL && curr->prev != NULL) //middle node
-    {
-        remove = curr;
-        pred = curr->prev;
-        succ = curr->next;
-        pred->next = succ;
-        succ->prev = pred;
-        curr->next = NULL;
-        curr->prev = NULL;
-    }
-
-    curr->prev->next = curr->next;
-    curr->next->prev = curr->prev;
-
-    // insertion(item, remove);
+    
 
 }
 

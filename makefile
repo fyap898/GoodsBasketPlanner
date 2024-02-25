@@ -6,7 +6,7 @@ $(TARGET): $(MODULES)
 	g++ $(MODULES) $(GCOVFLAGS) -o $(TARGET)
 
 clean:
-	/bin/rm -f *.o $(TEST) $(TARGET) *.*~ *.g*
+	rm -f *.o $(TEST) $(TARGET) *.*~ *.g*
 
 all: clean $(TARGET)
 	./$(TARGET)

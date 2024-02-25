@@ -62,6 +62,11 @@ Description: Insert item into the end of the list
 void insertion(item_list*& head, item_list*& item);
 
 /*
+Description: Delete item from anywhere in the list
+*/
+void deletion(item_list*& basket, item_list*& item);
+
+/*
 Description: Clears buffer
 */
 void flush();

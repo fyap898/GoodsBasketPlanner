@@ -42,29 +42,32 @@ int main (){
     test->data.item_constraint = "XF";
 
     test->next = new item_list;
-    test = test->next;
-    test->data.item_index = 2;
-    test->data.item_type = 'M';
-    test->data.item_weight = 4;
-    test->data.item_size = 6;
-    test->data.item_constraint = "XD";
+    test->next->data.item_index = 2;
+    test->next->data.item_type = 'M';
+    test->next->data.item_weight = 4;
+    test->next->data.item_size = 6;
+    test->next->data.item_constraint = "XD";
 
     item_list* test2 = test;
 
     insertion(test, test2);
-    
+    //deletion(testBasket[0].item_in_basket, test2);
+    insertion(test, test2->next->next);
+    //deletion(testBasket[0].item_in_basket, test2);
+    testBasket[0].basket_size_limit -= test->data.item_size;
+    testBasket[0].basket_size_limit -= test->next->data.item_size;
     view_basket_content(testBasket, 1);
-
+    cout << endl << test->next->data.in_basket << endl;
 
     switch (choice)
     {
     case 1:
-        get_datafile(item_data_file, 'I');
-        item_list_ptr = read_item_datafile(item_fill_lvl, item_data_file);
-        item_head_ptr = item_list_ptr;
+//        get_datafile(item_data_file, 'I');
+//        item_list_ptr = read_item_datafile(item_fill_lvl, item_data_file);
+//        item_head_ptr = item_list_ptr;
 
-        get_datafile(basket_data_file, 'B');
-        read_basket_datafile(basket_list, basket_fill_lvl, basket_data_file);
+//        get_datafile(basket_data_file, 'B');
+//        read_basket_datafile(basket_list, basket_fill_lvl, basket_data_file);
         break;
     
     case 2:
@@ -102,7 +105,7 @@ int main (){
 
 int start_message()
 {
-    cout << GREEN << "\n\nWelcome to Goods Basket Planner\n\n" << WHITE;
+    cout << "\n\nWelcome to Goods Basket Planner\n\n";
     
     if(done)
     {
