@@ -32,11 +32,11 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
     item_list* head = NULL;
     item_list* curr;
     item_list* pred;
-    int item_count;
+    int scanned;
 
     if (infile.is_open()) {
         
-        while (infile >> item_count && item_count != 'E') {
+        while (infile >> scanned && scanned != 'E') {
 
             if(head == NULL)
             {
@@ -52,34 +52,34 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
                 curr->prev = pred;
             }
 
-            infile >> curr->data.item_index
-                       >> curr->data.item_type
+            curr->data.item_index = scanned;
+            infile >> curr->data.item_type
                        >> curr->data.item_weight
                        >> curr->data.item_size
                        >> curr->data.item_constraint;
             curr->data.in_basket = false;
 
             item_fill++;
-            item_count--;
+        
 
-            if(item_count > 0)
-            {
-                for (int i = 0; i < item_count && item_fill < MAX_ITEM; i++) {
-                    pred = curr;
-                    curr->next = new item_list;
-                    curr = curr->next;
-                    curr->next = NULL;
-                    curr->prev = pred;
+            // if(item_count > 0)
+            // {
+            //     for (int i = 0; i < item_count && item_fill < MAX_ITEM; i++) {
+            //         pred = curr;
+            //         curr->next = new item_list;
+            //         curr = curr->next;
+            //         curr->next = NULL;
+            //         curr->prev = pred;
 
-                    curr->data.item_index = pred->data.item_index;
-                    curr->data.item_type = pred->data.item_type;
-                    curr->data.item_weight = pred->data.item_weight;
-                    curr->data.item_size = pred->data.item_size;
-                    curr->data.item_constraint = pred->data.item_constraint;
-                    curr->data.in_basket = false;
-                    item_fill++;
-                }
-            }
+            //         curr->data.item_index = pred->data.item_index;
+            //         curr->data.item_type = pred->data.item_type;
+            //         curr->data.item_weight = pred->data.item_weight;
+            //         curr->data.item_size = pred->data.item_size;
+            //         curr->data.item_constraint = pred->data.item_constraint;
+            //         curr->data.in_basket = false;
+            //         item_fill++;
+            //     }
+            // }
         }
 
         infile.close();
@@ -93,33 +93,32 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
 void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_data_file)
 {
     ifstream infile(basket_data_file.c_str());
-    int basket_count;
+    int scanned;
     
     if (infile.is_open()) {
-        while (infile >> basket_count && basket_count != 'E') {
-            infile >> basket[basket_fill].basket_index
-                       >> basket[basket_fill].basket_type
+        while (infile >> scanned && scanned != 'E') {
+            basket[basket_fill].basket_index = scanned;
+            infile >> basket[basket_fill].basket_type
                        >> basket[basket_fill].basket_weight_limit
                        >> basket[basket_fill].basket_size_limit
                        >> basket[basket_fill].basket_constraints;  
             basket[basket_fill].fill_lvl_item = 0;
             basket[basket_fill].item_in_basket = NULL;
             basket_fill++;
-            basket_count--;
-
-            if(basket_count > 0)
-            {
-                for (int i = 0; i < basket_count && basket_fill < MAX_ITEM; i++) {
-                    basket[basket_fill].basket_index = basket[basket_fill - 1].basket_index;
-                    basket[basket_fill].basket_type = basket[basket_fill - 1].basket_type;
-                    basket[basket_fill].basket_weight_limit = basket[basket_fill - 1].basket_weight_limit;
-                    basket[basket_fill].basket_size_limit = basket[basket_fill - 1].basket_size_limit;
-                    basket[basket_fill].basket_constraints = basket[basket_fill - 1].basket_constraints;
-                    basket[basket_fill].fill_lvl_item = basket[basket_fill - 1].fill_lvl_item;
-                    basket[basket_fill].item_in_basket = NULL;
-                    basket_fill++;
-                }
-            }
+            
+            // if(basket_count > 0)
+            // {
+            //     for (int i = 0; i < basket_count && basket_fill < MAX_ITEM; i++) {
+            //         basket[basket_fill].basket_index = basket[basket_fill - 1].basket_index;
+            //         basket[basket_fill].basket_type = basket[basket_fill - 1].basket_type;
+            //         basket[basket_fill].basket_weight_limit = basket[basket_fill - 1].basket_weight_limit;
+            //         basket[basket_fill].basket_size_limit = basket[basket_fill - 1].basket_size_limit;
+            //         basket[basket_fill].basket_constraints = basket[basket_fill - 1].basket_constraints;
+            //         basket[basket_fill].fill_lvl_item = basket[basket_fill - 1].fill_lvl_item;
+            //         basket[basket_fill].item_in_basket = NULL;
+            //         basket_fill++;
+            //     }
+            // }
         }
         infile.close();
     } else {

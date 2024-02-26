@@ -95,17 +95,17 @@ int main (){
         break;
     }
 
-    // for(int i = 0; i < item_fill_lvl && item_head_ptr != nullptr; i++)
-    // {
-    //     cout << item_head_ptr->data.item_index << ' '
-    //          << item_head_ptr->data.item_weight << ' '
-    //          << item_head_ptr->data.item_type << ' '
-    //          << item_head_ptr->data.item_size << ' '
-    //          << item_head_ptr->data.item_constraint << '\n';
+    for(int i = 0; i < item_fill_lvl && item_head_ptr != nullptr; i++)
+    {
+        cout << item_head_ptr->data.item_index << ' '
+             << item_head_ptr->data.item_weight << ' '
+             << item_head_ptr->data.item_type << ' '
+             << item_head_ptr->data.item_size << ' '
+             << item_head_ptr->data.item_constraint << '\n';
         
-    //     item_head_ptr = item_head_ptr->next;
+        item_head_ptr = item_head_ptr->next;
 
-    // }
+    }
 
     for(int i = 0; i < basket_fill_lvl; i++)
     {
