@@ -22,7 +22,7 @@ int main (){
     int choice;
 
     choice = start_message();
-
+    menu();
     g_basket testBasket[1];
 
     testBasket[0].basket_index = 1;
@@ -32,42 +32,59 @@ int main (){
     testBasket[0].basket_constraints = "XD";
     testBasket[0].fill_lvl_item = 3;
     testBasket[0].item_in_basket = new item_list;
-
+    
+    
     item_list* test = testBasket[0].item_in_basket;
 
-    test->data.item_index = 1;
+    test->data.item_index = 0;
     test->data.item_type = 'P';
     test->data.item_weight = 5;
     test->data.item_size = 2;
     test->data.item_constraint = "XF";
+    test->next = NULL;
+    
+    item_list* test2 = new item_list;
+    test2->data.item_index = 1;
+    test2->data.item_type = 'M';
+    test2->data.item_weight = 4;
+    test2->data.item_size = 6;
+    test2->data.item_constraint = "XD";
 
-    test->next = new item_list;
-    test->next->data.item_index = 2;
-    test->next->data.item_type = 'M';
-    test->next->data.item_weight = 4;
-    test->next->data.item_size = 6;
-    test->next->data.item_constraint = "XD";
+    item_list* test3 = new item_list;
+    test3->data.item_index = 2;
+    test3->data.item_type = 'P';
+    test3->data.item_weight = 10;
+    test3->data.item_size = 10;
+    test3->data.item_constraint = "XD";
 
-    item_list* test2 = test;
+    item_list* test4 = new item_list;
+    test4->data.item_index = 3;
+    test4->data.item_type = 'D';
+    test4->data.item_weight = 2;
+    test4->data.item_size = 4;
+    test4->data.item_constraint = "XM";
+
 
     insertion(test, test2);
-    //deletion(testBasket[0].item_in_basket, test2);
-    insertion(test, test2->next->next);
-    //deletion(testBasket[0].item_in_basket, test2);
-    testBasket[0].basket_size_limit -= test->data.item_size;
-    testBasket[0].basket_size_limit -= test->next->data.item_size;
+    insertion(test, test3);
+    if (!check_item_conflict(test, test4) || !check_item_type(testBasket[0], test4))
+    {
+	insertion(test, test4);
+    }
+    
+    deletion(test, test2);
+    //deletion(test, test4);
     view_basket_content(testBasket, 1);
-    cout << endl << test->next->data.in_basket << endl;
 
     switch (choice)
     {
     case 1:
-//        get_datafile(item_data_file, 'I');
-//        item_list_ptr = read_item_datafile(item_fill_lvl, item_data_file);
-//        item_head_ptr = item_list_ptr;
+        get_datafile(item_data_file, 'I');
+        item_list_ptr = read_item_datafile(item_fill_lvl, item_data_file);
+        item_head_ptr = item_list_ptr;
 
-//        get_datafile(basket_data_file, 'B');
-//        read_basket_datafile(basket_list, basket_fill_lvl, basket_data_file);
+        get_datafile(basket_data_file, 'B');
+        read_basket_datafile(basket_list, basket_fill_lvl, basket_data_file);
         break;
     
     case 2:
@@ -99,7 +116,7 @@ int main (){
              << basket_list[i].basket_constraints << ' '
              << basket_list[i].item_in_basket << '\n';
     }
-
+    cout << basket_fill_lvl << '\n' << item_fill_lvl << endl;
     return 0;
 }
 

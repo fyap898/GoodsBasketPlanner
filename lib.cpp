@@ -162,7 +162,11 @@ void view_basket_content(g_basket basket[], int basket_count)
                 << "-------------------------------------------------\n";
 
             curr = basket[i].item_in_basket;
-            
+	    if (curr == NULL)
+	    {
+		curr = curr->next;
+	    }
+	    curr = curr->next;
             while (curr->next != NULL)
             {
                 cout << curr->data.item_index << "\t"
@@ -173,6 +177,11 @@ void view_basket_content(g_basket basket[], int basket_count)
                 
                 curr = curr->next;
             }
+	    cout << curr->data.item_index << "\t"
+		 << curr->data.item_type << "\t\t"
+		 << curr->data.item_weight << "\t\t\t"
+		 << curr->data.item_size << "\t\t"
+		 << curr->data.item_constraint << "\n";
             cout <<"-------------------------------------------------\n"
                 << endl;
         }
@@ -321,10 +330,10 @@ void insertion(item_list*& head, item_list*& item)
     new_item->data = item->data;
     new_item->next = NULL;
 
-    if (head == NULL)
+    if (curr == NULL)
     {
         new_item->prev = NULL;
-        head = new_item;
+        curr = new_item;
         return;
     }
 

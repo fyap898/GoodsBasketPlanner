@@ -8,3 +8,5 @@ build/Debug/lib.o
 *.db
 .vs/GoodsBasketPlanner/v17/.wsuo
 .vs/slnx.sqlite
+*.o
+*.exe
