@@ -33,6 +33,9 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
     item_list* curr;
     item_list* pred;
     int scanned;
+    string line;
+
+    getline(infile,line);
 
     if (infile.is_open()) {
         
@@ -94,6 +97,9 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
 {
     ifstream infile(basket_data_file.c_str());
     int scanned;
+    string line;
+
+    getline(infile,line);
     
     if (infile.is_open()) {
         while (infile >> scanned && scanned != 'E') {
@@ -169,17 +175,17 @@ void view_basket_content(g_basket basket[], int basket_count)
             while (curr->next != NULL)
             {
                 cout << curr->data.item_index << "\t"
-                    << curr->data.item_type << "\t\t"
-                    << curr->data.item_weight << "\t\t\t"
-                    << curr->data.item_size << "\t\t"
+                    << curr->data.item_type << "\t"
+                    << curr->data.item_weight << "\t\t"
+                    << curr->data.item_size << "\t"
                     << curr->data.item_constraint << "\n";
                 
                 curr = curr->next;
             }
 	    cout << curr->data.item_index << "\t"
-		 << curr->data.item_type << "\t\t"
-		 << curr->data.item_weight << "\t\t\t"
-		 << curr->data.item_size << "\t\t"
+		 << curr->data.item_type << "\t"
+		 << curr->data.item_weight << "\t\t"
+		 << curr->data.item_size << "\t"
 		 << curr->data.item_constraint << "\n";
             cout <<"-------------------------------------------------\n"
                 << endl;
@@ -225,6 +231,7 @@ void output_basket_info(g_basket basket)
     
 }
 
+//
 void add_item(g_basket basket, int& basket_fill, int& item_fill, item_list* item)
 {
     if (basket.basket_size_limit == 0 || basket.basket_weight_limit == 0)
@@ -354,7 +361,7 @@ void deletion(item_list*& basket, item_list*& item)
     
     if (basket == NULL)
     {
-	return;
+	    return;
     }
 
     item_list* curr = basket;

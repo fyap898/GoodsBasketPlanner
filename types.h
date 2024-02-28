@@ -41,7 +41,7 @@ typedef struct
     bool in_basket;
 }g_item;
 
-//Nodes for dooubly linked list
+//Nodes for doubly linked list
 struct item_list
 {
     item_list *next;
@@ -54,10 +54,14 @@ typedef struct
     int basket_index;
     char basket_type;
     int basket_weight_limit;
+    int weight_remaining;
     int basket_size_limit;
+    int size_remaining;
     string basket_constraints;
     int fill_lvl_item;
-    item_list* item_in_basket; //pointing at head node
+
+    //pointing at head node
+    item_list* item_in_basket;
 }g_basket;
 
 
