@@ -1,3 +1,13 @@
+/*
+    Group Members: Andrew Phan, Felix Yap
+    Course: COMP 3649: Programming Paradigms
+    File Name: types.h
+    Instructor's Name: Marc Schroeder
+    Due Date: April 5, 2024
+
+    Description: File for our own structs and constants
+
+*/
 #ifndef TYPES_H
 #define TYPES_H
 

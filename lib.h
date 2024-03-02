@@ -1,3 +1,18 @@
+/*
+    Group Members: Andrew Phan, Felix Yap
+    Course: COMP 3649: Programming Paradigms
+    File Name: lib.h
+    Instructor's Name: Marc Schroeder
+    Due Date: April 5, 2024
+
+    Description: File contains all main functions used in main program such as add and subtract operations, 
+    I/O operations, etc.
+
+    Details: Currently reading of files, addition of nodes, and type checks are all working.
+             Main sorting function does not work yet.
+             Might not use remove_item
+*/
+
 #ifndef LIB_H
 #define LIB_H
 

@@ -1,3 +1,14 @@
+/*
+    Group Members: Andrew Phan, Felix Yap
+    Course: COMP 3649: Programming Paradigms
+    File Name: main.cpp
+    Instructor's Name: Marc Schroeder
+    Due Date: April 5, 2024
+
+    Description: Main file where solver is performed
+
+    Details: Right now, only performs operations on a test basket.
+*/
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -69,10 +80,10 @@ int main (){
     insertion(test, test3);
     if (!check_item_conflict(test, test4) || !check_item_type(testBasket[0], test4))
     {
-	insertion(test, test4);
+	    insertion(test, test4);
     }
     
-    deletion(test, test2);
+    //deletion(test, test2);
     //deletion(test, test4);
     view_basket_content(testBasket, 1);
 
