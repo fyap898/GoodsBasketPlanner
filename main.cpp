@@ -6,24 +6,22 @@
 using namespace std;
 
 //Description: Prompts menu
-int start_message();
-//Flag indicating whether there is operation done
-bool done = false;
+void start_message();
 
-int main (){
+//Description: Prompts exit message
+void exit_message();
+
+int main ()
+{
     string item_data_file, basket_data_file;
     item_list* item_list_ptr;
     item_list* item_head_ptr;
     int item_fill_lvl = 0;
     g_basket basket_list[MAX_BASKET];
     item_list* basket_item_headptr;
-    vector<g_item> item_vec;
-    vector<g_basket> basket_vec;
     int basket_fill_lvl = 0;
     int choice;
 
-    choice = start_message();
-    menu();
     g_basket testBasket[1];
 
     testBasket[0].basket_index = 1;
@@ -100,9 +98,11 @@ int main (){
         cout << "no\n";
     }
 
-    switch (choice)
+    start_message();
+    cin >> choice;
+
+    while(choice != 0)
     {
-    case 1:
         get_datafile(item_data_file, 'I');
         item_list_ptr = read_item_datafile(item_fill_lvl, item_data_file);
 
@@ -113,24 +113,29 @@ int main (){
         knapsack(basket_list, item_list_ptr, 0, basket_fill_lvl, item_fill_lvl);
 
         view_result(basket_list, basket_fill_lvl, item_list_ptr);
-        break;
 
-    case 3:
-        break;
+        start_message();
+        cin >> choice;
     }
+
+    
+
+    exit_message();
+
 
     return 0;
 }
 
-int start_message()
+void start_message()
 {
-    cout << "\n\nWelcome to Goods Basket Planner\n\n";
-    
-    if(done)
-    {
-        return menu();
-    } else {
-        return 1;
-    }
+    cout << MAGENTA << "\n\nWelcome to Goods Basket Planner\n\n" 
+         << "(1) Start the program\n"
+         << "(0) Exit\n\n"
+         << WHITE << "Choice: ";
+}
+
+void exit_message()
+{
+    cout << "\nThank you for using Goods and Baskets Planner\n\n";
 }
 

@@ -102,20 +102,6 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
 
 }
 
-int menu()
-{
-    int choice;
-
-    cout << GREEN << "Enter a number to make a choice\n";
-    cout << "1. Plan organization of goods in basket(s)\n";
-    cout << "2. View current basket(s) organization\n";
-    cout << "3. Quit\n\n" << WHITE;
-
-    cin >> choice;
-
-    return choice;
-} 
-
 // Needs to be changed if struct changes
 void view_result(g_basket basket[], int basket_count, item_list* item)
 {
@@ -156,7 +142,8 @@ void view_result(g_basket basket[], int basket_count, item_list* item)
                     cout <<"-------------------------------------------------\n"
                         << endl;
             } else {
-                cout << RED << "\t---No Item Added---\n\n" << WHITE
+                cout << "-------------------------------------------------\n\n"
+                     << RED << "\t---No Item Added---\n\n" << WHITE
                      << "-------------------------------------------------\n\n";
             }
         }
@@ -193,7 +180,8 @@ void output_basket_info(g_basket basket)
 void output_item_not_in_basket(item_list* item)
 {
     item_list* curr = item;
-    cout << RED << "Displaying items not added into baskets...\n" << WHITE
+    cout << endl << endl
+         << RED << "Displaying items not added into baskets...\n" << WHITE
          << "-------------------------------------------------\n\n";
     
     cout << "Items: \n"

@@ -23,11 +23,6 @@ Description: Read data from the basket's input file
 void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_data_file);
 
 /*
-Description: Prints the main menu 
-*/
-int menu();
-
-/*
 Description: Display basket's content
 */
 void view_result(g_basket basket[], int basketFill, item_list* item);
