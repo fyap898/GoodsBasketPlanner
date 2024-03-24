@@ -63,26 +63,6 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
             curr->data.in_basket = false;
 
             item_fill++;
-        
-
-            // if(item_count > 0)
-            // {
-            //     for (int i = 0; i < item_count && item_fill < MAX_ITEM; i++) {
-            //         pred = curr;
-            //         curr->next = new item_list;
-            //         curr = curr->next;
-            //         curr->next = NULL;
-            //         curr->prev = pred;
-
-            //         curr->data.item_index = pred->data.item_index;
-            //         curr->data.item_type = pred->data.item_type;
-            //         curr->data.item_weight = pred->data.item_weight;
-            //         curr->data.item_size = pred->data.item_size;
-            //         curr->data.item_constraint = pred->data.item_constraint;
-            //         curr->data.in_basket = false;
-            //         item_fill++;
-            //     }
-            // }
         }
 
         infile.close();
@@ -104,27 +84,15 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
     if (infile.is_open()) {
         while (infile >> scanned && scanned != 'E') {
             basket[basket_fill].basket_index = scanned;
-            infile >> basket[basket_fill].basket_type
-                       >> basket[basket_fill].basket_weight_limit
+            infile >> basket[basket_fill].basket_weight_limit
                        >> basket[basket_fill].basket_size_limit
-                       >> basket[basket_fill].basket_constraints;  
+                       >> basket[basket_fill].basket_constraints; 
+            basket[basket_fill].weight_remaining = basket[basket_fill].basket_weight_limit;
+            basket[basket_fill].size_remaining = basket[basket_fill].basket_size_limit;
             basket[basket_fill].fill_lvl_item = 0;
             basket[basket_fill].item_in_basket = NULL;
+
             basket_fill++;
-            
-            // if(basket_count > 0)
-            // {
-            //     for (int i = 0; i < basket_count && basket_fill < MAX_ITEM; i++) {
-            //         basket[basket_fill].basket_index = basket[basket_fill - 1].basket_index;
-            //         basket[basket_fill].basket_type = basket[basket_fill - 1].basket_type;
-            //         basket[basket_fill].basket_weight_limit = basket[basket_fill - 1].basket_weight_limit;
-            //         basket[basket_fill].basket_size_limit = basket[basket_fill - 1].basket_size_limit;
-            //         basket[basket_fill].basket_constraints = basket[basket_fill - 1].basket_constraints;
-            //         basket[basket_fill].fill_lvl_item = basket[basket_fill - 1].fill_lvl_item;
-            //         basket[basket_fill].item_in_basket = NULL;
-            //         basket_fill++;
-            //     }
-            // }
         }
         infile.close();
     } else {
@@ -149,11 +117,11 @@ int menu()
 } 
 
 // Needs to be changed if struct changes
-void view_basket_content(g_basket basket[], int basket_count)
+void view_result(g_basket basket[], int basket_count, item_list* item)
 {
     item_list* curr;
 
-    cout << "\nDisplaying all basket's content...\n"
+    cout << GREEN << "\nDisplaying all basket's content...\n" << WHITE
         << "-------------------------------------------------\n";
 
     for(int i = 0; i < basket_count; i++)
@@ -161,196 +129,221 @@ void view_basket_content(g_basket basket[], int basket_count)
         if(basket[i].basket_index != 0)
         {
             output_basket_info(basket[i]);
-        
-            cout << "Items: \n"
-                << "No. | Type   | Weight     | Size     | Constraint\n" 
-                << "-------------------------------------------------\n";
 
-            curr = basket[i].item_in_basket;
-	    if (curr == NULL)
-	    {
-		curr = curr->next;
-	    }
-	    curr = curr->next;
-            while (curr->next != NULL)
+            if(basket[i].item_in_basket != NULL)
             {
+        
+                cout << "Items: \n"
+                    << "No. | Type   | Weight     | Size     | Constraint\n" 
+                    << "-------------------------------------------------\n";
+
+                curr = basket[i].item_in_basket;
+                while (curr->next != NULL)
+                {
+                    cout << curr->data.item_index << "\t"
+                        << curr->data.item_type << "\t"
+                        << curr->data.item_weight << "\t\t"
+                        << curr->data.item_size << "\t"
+                        << curr->data.item_constraint << "\n";
+                    
+                    curr = curr->next;
+                }
                 cout << curr->data.item_index << "\t"
                     << curr->data.item_type << "\t"
                     << curr->data.item_weight << "\t\t"
                     << curr->data.item_size << "\t"
                     << curr->data.item_constraint << "\n";
-                
-                curr = curr->next;
+                    cout <<"-------------------------------------------------\n"
+                        << endl;
+            } else {
+                cout << RED << "\t---No Item Added---\n\n" << WHITE
+                     << "-------------------------------------------------\n\n";
             }
-	    cout << curr->data.item_index << "\t"
-		 << curr->data.item_type << "\t"
-		 << curr->data.item_weight << "\t\t"
-		 << curr->data.item_size << "\t"
-		 << curr->data.item_constraint << "\n";
-            cout <<"-------------------------------------------------\n"
-                << endl;
         }
     }
+
+    output_item_not_in_basket(item);
 }
 
 void output_basket_info(g_basket basket)
 {
-    cout << "Basket Index: " << basket.basket_index << "\n"
-            << "Weight Limit: " << basket.basket_weight_limit << "\n"
-            << "Size Limit: " << basket.basket_size_limit << "\n";
-
-    cout << "Type: ";
-    if(basket.basket_type == 'D')
-    {
-        cout << "Dairy\n";
-    } else if(basket.basket_type == 'F')
-    {
-        cout << "Frozen\n";
-    } else if(basket.basket_type == 'M')
-    {
-        cout << "Meat\n";
-    } else if(basket.basket_type == 'P')
-    {
-        cout << "Produce\n";
-    }
+    cout << BLUE << "Basket Index: " << WHITE << basket.basket_index << "\n"
+            << BLUE << "Weight Limit: " << WHITE << basket.basket_weight_limit << "\n"
+            << BLUE << "Size Limit: " << WHITE << basket.basket_size_limit << "\n"
+            << BLUE << "Weight Remaining: " << WHITE << basket.weight_remaining << "\n"
+            << BLUE << "Size Remaining: " << WHITE << basket.size_remaining << "\n";
     
-    cout << "Constraint: ";
+    cout << BLUE << "Constraint: " << WHITE;
     if(basket.basket_constraints == "XD")
     {
-        cout << basket.basket_constraints << "\n\n";
+        cout << "No Dairy" << "\n\n";
     } else if(basket.basket_constraints == "XF")
     {
-        cout << basket.basket_constraints << "\n\n";
+        cout << "No Frozen" << "\n\n";
     } else if(basket.basket_constraints == "XM")
     {
-        cout << basket.basket_constraints << "\n\n";
+        cout << "No Meat" << "\n\n";
     } else if(basket.basket_constraints == "XP")
     {
-        cout << basket.basket_constraints << "\n\n";
+        cout << "No Produce" << "\n\n";
     }
     
+}
+
+void output_item_not_in_basket(item_list* item)
+{
+    item_list* curr = item;
+    cout << RED << "Displaying items not added into baskets...\n" << WHITE
+         << "-------------------------------------------------\n\n";
+    
+    cout << "Items: \n"
+                    << "No. | Type   | Weight     | Size     | Constraint\n" 
+                    << "-------------------------------------------------\n";
+
+    while(curr != NULL)
+    {
+        if(!curr->data.in_basket)
+        {
+            cout << curr->data.item_index << "\t"
+                        << curr->data.item_type << "\t"
+                        << curr->data.item_weight << "\t\t"
+                        << curr->data.item_size << "\t"
+                        << curr->data.item_constraint << "\n";
+        }
+        curr = curr->next;
+    }
+    cout << "-------------------------------------------------\n\n";
+    return;
+
 }
 
 //
-void add_item(g_basket basket, int& basket_fill, int& item_fill, item_list* item)
-{
-    if (basket.basket_size_limit == 0 || basket.basket_weight_limit == 0)
+void knapsack(g_basket basket[], item_list* item, int basket_counter, int basket_fill, int item_fill)
+{    
+    if(item == NULL)
     {
-        cout << "Basket Full" << endl;
         return;
     }
-    if (check_item_type(basket, item) || check_item_conflict(basket.item_in_basket, item))
+    if(item_fill == 0)
     {
-        cout << "Item Conflict" << endl;
         return;
     }
-    if (item->data.in_basket == true)
+    if(basket_counter == basket_fill)
     {
-        cout << "Item already in bag" << endl;
-        return;
+        //no baskets suit the item
+        return knapsack(basket, item->next, 0, basket_fill, --item_fill);
     }
-    insertion(basket.item_in_basket, item);
+    cout << item->data.item_index << endl;
 
-    basket.basket_size_limit -= item->data.item_size;
-    basket.basket_weight_limit -= item->data.item_weight;
-    item_fill--;
-    if (basket.basket_size_limit == 0 || basket.basket_weight_limit == 0)
+    if(!item->data.in_basket)
     {
-        basket_fill--;
-    }
-    return;
-}
-
-void remove_item(g_basket basket, int& basket_fill, int& item_fill, item_list* item) 
-{
-
-    // int i = 0;
-    // // item_list* head_pointer = basket_array[basket_index]->item_in_basket;
-
-    // if (basket_index < 0 || basket_index > MAX_BASKET) {
-    //     cout << "Invalid basket index" << endl;
-    //     return;
-    // }
-    // if (item_index < 0 || item_index > MAX_ITEM) {
-    //     cout << "Invalid item index" << endl;
-    //     return;
-    // }
-
-    // // If a full basket has an item removed, it becomes available to be in use again.
-    // if (basket_array[basket_index].basket_weight_limit == 0 || basket_array[basket_index].basket_size_limit == 0)
-    // {
-    //     basket_fill++;
-    // }
-    // // if (basket_array[basket_index].item_list) 
-    // // {
-    // //     /* code */
-    // // }
-    
-
-    // // item_fill++;
-
-}
-
-bool check_item_type(g_basket basket, item_list* item)
-{
-    if ((basket.basket_constraints == "XD" && item->data.item_type == 'D')
-        || (basket.basket_constraints == "XF" && item->data.item_type == 'F')
-        || (basket.basket_constraints == "XM" && item->data.item_type == 'M')
-        || (basket.basket_constraints == "XP" && item->data.item_type == 'P')) 
+        if(!check_basket_item_conflict(basket[basket_counter],item->data) && !check_item_conflict(basket[basket_counter].item_in_basket,item->data))
         {
+            if(basket[basket_counter].weight_remaining >= item->data.item_weight &&
+               basket[basket_counter].size_remaining >= item->data.item_size)
+               {
+                    insertion(basket[basket_counter].item_in_basket, item->data);
+                    item->data.in_basket = true;
+                    basket[basket_counter].weight_remaining -= item->data.item_weight;
+                    basket[basket_counter].size_remaining -= item->data.item_size;
+                    return knapsack(basket, item->next, 0, basket_fill, --item_fill);
+               } else
+               {
+                    return knapsack(basket, item, basket_counter + 1, basket_fill, item_fill);
+               }
+            
+        } else
+        {
+            return knapsack(basket, item, basket_counter + 1, basket_fill, item_fill);
+        }
+    } else
+    {
+        return knapsack(basket, item->next, basket_counter, basket_fill, --item_fill);
+    }
+}
+
+bool check_basket_item_conflict(g_basket basket, g_item item)
+{
+    if ((basket.basket_constraints == No_Dairy && item.item_type == Dairy) ||
+        (basket.basket_constraints == No_Frozen && item.item_type == Frozen) ||
+        (basket.basket_constraints == No_Meat && item.item_type == Meat) ||
+        (basket.basket_constraints == No_Produce && item.item_type == Produce)) 
+        {
+            //conflict
             return true;
         } else {
             return false;
         }
 }
 
-bool check_item_conflict(item_list* head, item_list* item)
+bool check_item_conflict(item_list* head, g_item item)
 {
     item_list* curr = head;
-
-    while (curr->next != NULL)
+    if(curr == NULL) //Nothing in the list
     {
-        if ((curr->data.item_constraint == "XD" && item->data.item_type == 'D')
-            || (curr->data.item_constraint == "XF" && item->data.item_type == 'F')
-            || (curr->data.item_constraint == "XM" && item->data.item_type == 'M')
-            || (curr->data.item_constraint == "XP" && item->data.item_type == 'P')
-            || (curr->data.item_type == 'D' && item->data.item_constraint == "XD")
-            || (curr->data.item_type == 'F' && item->data.item_constraint == "XF")
-            || (curr->data.item_type == 'M' && item->data.item_constraint == "XM")
-            || (curr->data.item_type == 'P' && item->data.item_constraint == "XP")) 
+        return false;
+
+    } else if(curr->next == NULL) //one item in the list
+    {
+        if((curr->data.item_constraint == No_Dairy && item.item_type == Dairy) ||
+            (curr->data.item_constraint == No_Frozen && item.item_type == Frozen) ||
+            (curr->data.item_constraint == No_Meat && item.item_type == Meat) ||
+            (curr->data.item_constraint == No_Produce && item.item_type == Produce) ||
+            (curr->data.item_type == Dairy && item.item_constraint == No_Dairy) ||
+            (curr->data.item_type == Frozen && item.item_constraint == No_Frozen) ||
+            (curr->data.item_type == Meat && item.item_constraint == No_Meat) ||
+            (curr->data.item_type == Produce && item.item_constraint == No_Produce))
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    while (curr != NULL)
+    {
+        if((curr->data.item_constraint == No_Dairy && item.item_type == Dairy) ||
+            (curr->data.item_constraint == No_Frozen && item.item_type == Frozen) ||
+            (curr->data.item_constraint == No_Meat && item.item_type == Meat) ||
+            (curr->data.item_constraint == No_Produce && item.item_type == Produce) ||
+            (curr->data.item_type == Dairy && item.item_constraint == No_Dairy) ||
+            (curr->data.item_type == Frozen && item.item_constraint == No_Frozen) ||
+            (curr->data.item_type == Meat && item.item_constraint == No_Meat) ||
+            (curr->data.item_type == Produce && item.item_constraint == No_Produce))
         {
             return true;
         }
+
         curr = curr->next;
     }
     return false;
     
 } 
 
-void insertion(item_list*& head, item_list*& item)
+void insertion(item_list*& head, g_item item)
 {
     item_list* curr = head;
-    // item_list* pred = NULL;
-    item_list* new_item = new item_list;
-
-    new_item->data = item->data;
-    new_item->next = NULL;
+    item_list* pred = NULL;
 
     if (curr == NULL)
     {
-        new_item->prev = NULL;
-        curr = new_item;
-        return;
-    }
-
-    while (curr->next != NULL)
+        head = new item_list;
+        curr = head;
+        curr->data = item;
+        curr->prev = NULL;
+        curr->next = NULL;
+    } else 
     {
-        curr = curr->next;
-    }
+        while (curr->next != NULL)
+        {
+            curr = curr->next;
+        }
 
-    curr->next = new_item;
-    new_item->prev = curr;
-    item->data.in_basket = true;
+        curr->next = new item_list;
+        pred = curr;
+        curr = curr->next;
+        curr->data = item;
+        curr->prev = pred;
+    }
 
     return;
 

@@ -2,4 +2,14 @@ Index Type Weight Size Constraints
 1 P 2 3 XD
 2 M 2 3 XP
 3 D 2 3 XF
-4 F 3 4 XM E
+4 F 3 4 XM 
+5 M 3 5 XF
+6 P 6 9 XM E
+7 F 7 5 XP E
+8 D 3 10 XD
+9 P 5 5 XM
+10 M 1 6 XF
+11 F 3 3 XP
+12 D 8 2 XD
+13 M 6 3 XM
+14 P 9 1 XM E

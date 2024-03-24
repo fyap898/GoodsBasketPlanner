@@ -1,13 +1,3 @@
-/*
-    Group Members: Andrew Phan, Felix Yap
-    Course: COMP 3649: Programming Paradigms
-    File Name: types.h
-    Instructor's Name: Marc Schroeder
-    Due Date: April 5, 2024
-
-    Description: File for our own structs and constants
-
-*/
 #ifndef TYPES_H
 #define TYPES_H
 
@@ -26,16 +16,16 @@ using namespace std;
 #define WHITE "\033[37m"
 
 //Code for goods constraints
-#define XD No_Dairy
-#define XF No_Frozen
-#define XM No_Meat
-#define XP No_Produce
+#define No_Dairy "XD"
+#define No_Frozen "XF"
+#define No_Meat "XM"
+#define No_Produce "XP"
 
 //Code for goods' type
-#define D Dairy
-#define F Frozen
-#define M Meat
-#define P Produce
+#define Dairy 'D'
+#define Frozen 'F'
+#define Meat 'M'
+#define Produce 'P'
 
 #define MAX_ITEM 50
 #define MAX_BASKET 50
@@ -62,7 +52,6 @@ struct item_list
 typedef struct 
 {
     int basket_index;
-    char basket_type;
     int basket_weight_limit;
     int weight_remaining;
     int basket_size_limit;

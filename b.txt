@@ -1,4 +1,4 @@
-Index Type Weight_Limit Size_Limit Constraints
-1 F 50 10 XD
-2 M 60 15 XF
-3 P 20 5 XP E
+Index Weight_Limit Size_Limit Constraints
+1 50 10 XD
+2 60 15 XF
+3 20 5 XM E
