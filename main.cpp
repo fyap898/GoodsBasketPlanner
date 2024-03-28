@@ -100,6 +100,13 @@ int main ()
 
     start_message();
     cin >> choice;
+    while(choice < 0 || choice > 1)
+    {
+        cout << endl << RED << "\t-----Invalid Input-----\n"
+             << "\t   Please Try Again" << WHITE;
+        start_message();
+        cin >> choice;
+    }
 
     while(choice != 0)
     {
