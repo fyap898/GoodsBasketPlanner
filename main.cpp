@@ -40,7 +40,7 @@ int main ()
         get_datafile(basket_data_file, 'B');
         read_basket_datafile(basket_list, basket_fill_lvl, basket_data_file);
 
-        //0 is the array index, starting from index 0
+        //0 is the array index counter, starting from index 0
         knapsack(basket_list, item_list_ptr, 0, basket_fill_lvl, item_fill_lvl);
 
         view_result(basket_list, basket_fill_lvl, item_list_ptr);
