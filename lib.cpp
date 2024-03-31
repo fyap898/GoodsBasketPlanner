@@ -108,7 +108,7 @@ void view_result(g_basket basket[], int basket_count, item_list* item)
     item_list* curr;
 
     cout << GREEN << "\nDisplaying all basket's content...\n" << WHITE
-        << "-------------------------------------------------\n";
+        << "---------------------------------------------------\n";
 
     for(int i = 0; i < basket_count; i++)
     {
@@ -121,7 +121,7 @@ void view_result(g_basket basket[], int basket_count, item_list* item)
         
                 cout << "Items: \n"
                     << "No. | Type       | Weight | Size     | Constraint\n" 
-                    << "-------------------------------------------------\n";
+                    << "---------------------------------------------------\n";
 
                 curr = basket[i].item_in_basket;
                 while (curr->next != NULL)
@@ -141,9 +141,21 @@ void view_result(g_basket basket[], int basket_count, item_list* item)
                         cout << "Produce\t\t";
                     }
                     cout << curr->data.item_weight << "\t"
-                        << curr->data.item_size << "\t"
-                        << curr->data.item_constraint << "\n";
-                    
+                        << curr->data.item_size << "\t";
+                    if(curr->data.item_constraint == No_Dairy)
+                    {
+                        cout << "No Dairy\n";
+                    } else if(curr->data.item_constraint == No_Frozen)
+                    {
+                        cout << "No Frozen\n";
+                    } else if(curr->data.item_constraint == No_Meat)
+                    {
+                        cout << "No Meat\n";
+                    } else if(curr->data.item_constraint == No_Produce)
+                    {
+                        cout << "No Produce\n";
+                    }
+
                     curr = curr->next;
                 }
                 cout << curr->data.item_index << "\t";
@@ -161,14 +173,27 @@ void view_result(g_basket basket[], int basket_count, item_list* item)
                         cout << "Produce\t\t";
                     }
                 cout << curr->data.item_weight << "\t"
-                    << curr->data.item_size << "\t"
-                    << curr->data.item_constraint << "\n";
-                    cout <<"-------------------------------------------------\n"
+                    << curr->data.item_size << "\t";
+                if(curr->data.item_constraint == No_Dairy)
+                {
+                    cout << "No Dairy\n";
+                } else if(curr->data.item_constraint == No_Frozen)
+                {
+                    cout << "No Frozen\n";
+                } else if(curr->data.item_constraint == No_Meat)
+                {
+                    cout << "No Meat\n";
+                } else if(curr->data.item_constraint == No_Produce)
+                {
+                    cout << "No Produce\n";
+                }
+
+                    cout <<"---------------------------------------------------\n"
                         << endl;
             } else {
-                cout << "-------------------------------------------------\n\n"
+                cout << "---------------------------------------------------\n\n"
                      << RED << "\t---No Item Added---\n\n" << WHITE
-                     << "-------------------------------------------------\n\n";
+                     << "---------------------------------------------------\n\n";
             }
         }
     }
@@ -185,16 +210,16 @@ void output_basket_info(g_basket basket)
             << BLUE << "Size Remaining: " << WHITE << basket.size_remaining << "\n";
     
     cout << BLUE << "Constraint: " << WHITE;
-    if(basket.basket_constraints == "XD")
+    if(basket.basket_constraints == No_Dairy)
     {
         cout << "No Dairy" << "\n\n";
-    } else if(basket.basket_constraints == "XF")
+    } else if(basket.basket_constraints == No_Frozen)
     {
         cout << "No Frozen" << "\n\n";
-    } else if(basket.basket_constraints == "XM")
+    } else if(basket.basket_constraints == No_Meat)
     {
         cout << "No Meat" << "\n\n";
-    } else if(basket.basket_constraints == "XP")
+    } else if(basket.basket_constraints == No_Produce)
     {
         cout << "No Produce" << "\n\n";
     }
@@ -206,11 +231,11 @@ void output_item_not_in_basket(item_list* item)
     item_list* curr = item;
     cout << endl << endl
          << RED << "Displaying items not added into baskets...\n" << WHITE
-         << "-------------------------------------------------\n\n";
+         << "---------------------------------------------------\n\n";
     
     cout << "Items: \n"
                     << "No. | Type       | Weight | Size     | Constraint\n" 
-                    << "-------------------------------------------------\n";
+                    << "---------------------------------------------------\n";
 
     while(curr != NULL)
     {
@@ -231,12 +256,24 @@ void output_item_not_in_basket(item_list* item)
                 cout << "Produce\t\t";
             }                        
             cout << curr->data.item_weight << "\t"
-                << curr->data.item_size << "\t"
-                << curr->data.item_constraint << "\n";
+                << curr->data.item_size << "\t";
+            if(curr->data.item_constraint == No_Dairy)
+            {
+                cout << "No Dairy\n";
+            } else if(curr->data.item_constraint == No_Frozen)
+            {
+                cout << "No Frozen\n";
+            } else if(curr->data.item_constraint == No_Meat)
+            {
+                cout << "No Meat\n";
+            } else if(curr->data.item_constraint == No_Produce)
+            {
+                cout << "No Produce\n";
+            }
         }
         curr = curr->next;
     }
-    cout << "-------------------------------------------------\n\n";
+    cout << "---------------------------------------------------\n\n";
     return;
 
 }
@@ -257,7 +294,6 @@ void knapsack(g_basket basket[], item_list* item, int basket_counter, int basket
         //no baskets suit the item
         return knapsack(basket, item->next, 0, basket_fill, --item_fill);
     }
-    cout << item->data.item_index << endl;
 
     if(!item->data.in_basket)
     {
