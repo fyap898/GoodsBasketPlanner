@@ -120,23 +120,47 @@ void view_result(g_basket basket[], int basket_count, item_list* item)
             {
         
                 cout << "Items: \n"
-                    << "No. | Type   | Weight     | Size     | Constraint\n" 
+                    << "No. | Type       | Weight | Size     | Constraint\n" 
                     << "-------------------------------------------------\n";
 
                 curr = basket[i].item_in_basket;
                 while (curr->next != NULL)
                 {
-                    cout << curr->data.item_index << "\t"
-                        << curr->data.item_type << "\t"
-                        << curr->data.item_weight << "\t\t"
+                    cout << curr->data.item_index << "\t";
+                    if(curr->data.item_type == Dairy)
+                    {
+                        cout << "Dairy\t\t";
+                    } else if(curr->data.item_type == Frozen)
+                    {
+                        cout << "Frozen\t\t";
+                    } else if(curr->data.item_type == Meat)
+                    {
+                        cout << "Meat\t\t";
+                    } else if(curr->data.item_type == Produce)
+                    {
+                        cout << "Produce\t\t";
+                    }
+                    cout << curr->data.item_weight << "\t"
                         << curr->data.item_size << "\t"
                         << curr->data.item_constraint << "\n";
                     
                     curr = curr->next;
                 }
-                cout << curr->data.item_index << "\t"
-                    << curr->data.item_type << "\t"
-                    << curr->data.item_weight << "\t\t"
+                cout << curr->data.item_index << "\t";
+                if(curr->data.item_type == Dairy)
+                    {
+                        cout << "Dairy\t\t";
+                    } else if(curr->data.item_type == Frozen)
+                    {
+                        cout << "Frozen\t\t";
+                    } else if(curr->data.item_type == Meat)
+                    {
+                        cout << "Meat\t\t";
+                    } else if(curr->data.item_type == Produce)
+                    {
+                        cout << "Produce\t\t";
+                    }
+                cout << curr->data.item_weight << "\t"
                     << curr->data.item_size << "\t"
                     << curr->data.item_constraint << "\n";
                     cout <<"-------------------------------------------------\n"
@@ -185,18 +209,30 @@ void output_item_not_in_basket(item_list* item)
          << "-------------------------------------------------\n\n";
     
     cout << "Items: \n"
-                    << "No. | Type   | Weight     | Size     | Constraint\n" 
+                    << "No. | Type       | Weight | Size     | Constraint\n" 
                     << "-------------------------------------------------\n";
 
     while(curr != NULL)
     {
         if(!curr->data.in_basket)
         {
-            cout << curr->data.item_index << "\t"
-                        << curr->data.item_type << "\t"
-                        << curr->data.item_weight << "\t\t"
-                        << curr->data.item_size << "\t"
-                        << curr->data.item_constraint << "\n";
+            cout << curr->data.item_index << "\t";
+            if(curr->data.item_type == Dairy)
+            {
+                cout << "Dairy\t\t";
+            } else if(curr->data.item_type == Frozen)
+            {
+                cout << "Frozen\t\t";
+            } else if(curr->data.item_type == Meat)
+            {
+                cout << "Meat\t\t";
+            } else if(curr->data.item_type == Produce)
+            {
+                cout << "Produce\t\t";
+            }                        
+            cout << curr->data.item_weight << "\t"
+                << curr->data.item_size << "\t"
+                << curr->data.item_constraint << "\n";
         }
         curr = curr->next;
     }
