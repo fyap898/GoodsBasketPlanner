@@ -29,6 +29,10 @@ using namespace std;
 
 #define MAX_ITEM 50
 #define MAX_BASKET 50
+#define MAX_IWEIGHT 100
+#define MAX_ISIZE 100
+#define MAX_BWEIGHT 500
+#define MAX_BSIZE 500
 
 //Item struct
 typedef struct

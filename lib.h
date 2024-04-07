@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <vector>
+#include <iomanip>
 #include "types.h"
 
 /*
@@ -56,16 +56,5 @@ bool check_item_conflict(item_list* head, g_item item);
 Description: Insert item into the end of the list
 */
 void insertion(item_list*& head, g_item item);
-
-/*
-Description: Delete item from anywhere in the list
-*/
-void deletion(item_list*& basket, item_list*& item);
-
-/*
-Description: Clears buffer
-*/
-void flush();
-
 
 #endif

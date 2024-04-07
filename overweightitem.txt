@@ -1,0 +1,2 @@
+Index Type Weight Size Constraints
+1 P 100 3 XD

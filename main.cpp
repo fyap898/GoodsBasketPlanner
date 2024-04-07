@@ -15,10 +15,8 @@ int main ()
 {
     string item_data_file, basket_data_file;
     item_list* item_list_ptr;
-    item_list* item_head_ptr;
     int item_fill_lvl = 0;
     g_basket basket_list[MAX_BASKET];
-    item_list* basket_item_headptr;
     int basket_fill_lvl = 0;
     int choice;
 
@@ -45,14 +43,23 @@ int main ()
 
         view_result(basket_list, basket_fill_lvl, item_list_ptr);
 
+        //reset everything and start over
+        basket_fill_lvl = 0;
+        item_fill_lvl = 0;
+        delete item_list_ptr;
+
         start_message();
         cin >> choice;
+        while(choice < 0 || choice > 1)
+        {
+            cout << endl << RED << "\t-----Invalid Input-----\n"
+                << "\t   Please Try Again" << WHITE;
+            start_message();
+            cin >> choice;
+        }
     }
 
-    
-
     exit_message();
-
 
     return 0;
 }
