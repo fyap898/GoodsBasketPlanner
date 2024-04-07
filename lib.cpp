@@ -55,7 +55,7 @@ item_list* read_item_datafile(int& item_fill, string item_data_file)
 
     if (infile.is_open()) {
         
-        while (infile >> scanned && scanned != 'E') 
+        while (infile >> scanned) 
         {
             if((infile >> iType) && (iType == Dairy ||
                                     iType == Frozen ||
@@ -119,7 +119,7 @@ void read_basket_datafile(g_basket basket[], int& basket_fill, string basket_dat
     getline(infile,line);
     
     if (infile.is_open()) {
-        while (infile >> scanned && scanned != 'E') {
+        while (infile >> scanned) {
             basket[basket_fill].basket_index = scanned;
             if((infile >> bWeightLim) && (0 < bWeightLim) && (bWeightLim <= MAX_BWEIGHT))
             {
